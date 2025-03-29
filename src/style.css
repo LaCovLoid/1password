@@ -10,9 +10,15 @@ body {
   min-width: 400px;
   margin: 0;
 
-  color: #02033b;
+  color: #000000;
   font-family: "Inter", sans-serif;
   place-items: center;
+
+  background-color: #ffc4c4;
+}
+
+a {
+  text-decoration: none;
 }
 
 #app {

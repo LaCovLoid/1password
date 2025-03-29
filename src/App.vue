@@ -1,8 +1,7 @@
 <template>
-  <Alert />
-  <Header />
+  <Header></Header>
   <RouterView />
-  <Footer />
+  <Footer></Footer>
 </template>
 
 <script setup lang="ts">
@@ -10,7 +9,6 @@ import { computed, onMounted, watch } from "vue";
 import { RouterView, useRoute } from "vue-router";
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
-import Alert from "./components/Alert.vue";
 
 const route = useRoute();
 const checkRoute = computed(() => route.path);
@@ -22,8 +20,4 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped>
-body {
-  background-color: white;
-}
-</style>
+<style lang="scss" scoped></style>
