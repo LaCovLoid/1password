@@ -1,16 +1,15 @@
 <template>
   <div class="header-container">
-    <div class="alert-container" :class="{ invisible: isClosed }">
-      <span class="alert-text">
-        1Password is now the exclusive Cybersecurity Partner of Oracle Red Bull
-        Racing!
-      </span>
-      <router-link to="/" class="alert-router">Learn more</router-link>
-      <img
-        class="cross-bt"
-        src="../assets/images/icons/cross.svg"
-        @click="closed()"
-      />
+    <div class="menu-container" :style="menuStyle()">
+      <router-link to="/" class="menu-logo">
+        <img
+          src="../assets/images/logos/lock_hole_blakc.png"
+          class="menu-logo-img"
+        />
+        <span class="menu-logo-text">1Password</span>
+      </router-link>
+      <router-link to="/" class="menu-item" v-for="index in 4" :key="index">
+      </router-link>
     </div>
   </div>
 </template>
@@ -18,9 +17,8 @@
 <script setup lang="ts">
 import { ref, type Ref } from "vue";
 
-const isClosed: Ref<boolean> = ref(false);
-const closed = () => {
-  isClosed.value = true;
+const menuStyle = () => {
+  return "{ color: red };";
 };
 </script>
 
@@ -28,36 +26,39 @@ const closed = () => {
 @use "@/global.scss" as *;
 
 .header-container {
-  min-height: 64px;
+  > .menu-container {
+    width: calc(100% - 144px);
 
-  > .alert-container {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-left: 25px;
 
-    position: relative;
+    position: fixed;
+    left: 72px;
 
-    background-color: #ffa2a2;
-    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    display: flex;
 
-    > .alert-text {
-      font-size: 15.38px;
-      line-height: 24px;
+    font-size: 15.13px;
+
+    background-color: #a0ccff;
+
+    > .menu-logo {
+      padding-top: 15.5px;
+      padding-bottom: 15.5px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background-color: #ffffff;
+
+      > .menu-logo-img {
+        height: 35px;
+
+        padding: 5px;
+      }
+
+      > .menu-logo-text {
+      }
     }
-    > .alert-router {
-      font-size: 15.5px;
-      line-height: 24px;
-      letter-spacing: -0.32px;
-    }
-    > .cross-bt {
-      position: absolute;
-      right: 5px;
-      top: 0;
-      padding: 20px;
-    }
-  }
-  .alert-container.invisible {
-    transform: translateY(-100%);
-    opacity: 0;
   }
 }
 </style>

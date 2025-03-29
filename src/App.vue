@@ -1,4 +1,5 @@
 <template>
+  <Alert />
   <Header />
   <RouterView />
   <Footer />
@@ -9,6 +10,7 @@ import { computed, onMounted, watch } from "vue";
 import { RouterView, useRoute } from "vue-router";
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
+import Alert from "./components/Alert.vue";
 
 const route = useRoute();
 const checkRoute = computed(() => route.path);
