@@ -9,11 +9,11 @@
           manager.</span
         >
         <div class="racingcar-bt-container">
-          <span class="racingcar-plan-bt">View plans</span>
-          <span class="racingcar-sales-bt">Talk to sales</span>
+          <span class="racingcar-bt bt-plan">View plans</span>
+          <span class="racingcar-bt bt-sales">Talk to sales</span>
         </div>
       </div>
-      <div class="racingcar-container-right">
+      <div class="racingcar-right">
         <img class="racingcar-logo" src="../assets/images/logos/oracle.png" />
       </div>
     </div>
@@ -149,15 +149,25 @@
 @use "@/global.scss" as *;
 
 .home-container {
-  > .access-container {
+  > .racingcar-container {
     width: 100%;
     height: 810px;
     max-width: 1920px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    color: #ffffff;
 
     background-image: url("../assets/images/pictures/racingcar.png");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+    background-color: #242529;
 
     @include minimize1200 {
       height: 650px;
@@ -165,6 +175,81 @@
 
     @include minimize800 {
       height: 677.4px;
+    }
+
+    > .racingcar-left {
+      padding-left: 94px;
+      padding-bottom: 98px;
+
+      > .racingcar-title {
+        display: block;
+
+        font-size: 84.22px;
+        line-height: 96.8px;
+        letter-spacing: -1.76px;
+      }
+
+      > .racingcar-description {
+        width: 355px;
+
+        margin-top: 15.4px;
+
+        display: block;
+
+        font-size: 19.22px;
+        font-weight: 200;
+        line-height: 27px;
+        letter-spacing: -0.4px;
+        text-align: left;
+      }
+
+      > .racingcar-bt-container {
+        margin-top: 34.4px;
+
+        display: flex;
+
+        > .racingcar-bt {
+          width: 204px;
+          height: 44px;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          line-height: 24px;
+
+          border-radius: 999px;
+        }
+
+        > .bt-plan {
+          margin-right: 11.71px;
+
+          color: #1a2552;
+          font-size: 15.38px;
+
+          background-color: #85beff;
+        }
+
+        > .bt-sales {
+          font-size: 15.5px;
+          background: linear-gradient(
+            90deg,
+            #f6f8fc 0%,
+            #94dae3 26%,
+            #85beff 98%
+          );
+          background-color: #fffefb;
+        }
+      }
+    }
+
+    > .racingcar-right {
+      padding-right: 70px;
+      padding-bottom: 48px;
+
+      > .racingcar-logo {
+        max-width: 250px;
+      }
     }
   }
 }
