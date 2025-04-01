@@ -1,4 +1,9 @@
-export interface DummyType {
-  dum1: string;
-  dum2: number;
+export interface FooterMenuType {
+  name: string;
+  subMenu: FooterSubMenuType[];
+}
+
+export interface FooterSubMenuType {
+  name: string;
+  url: string;
 }
