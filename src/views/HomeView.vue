@@ -32,27 +32,40 @@
       </span>
 
       <div class="securing-info-container">
-        <span class="info-subtitle">Password Manager</span>
-        <span class="info-title">Safeguard your digital life</span>
-        <span class="info-description">
-          Oracle Red Bull Racing relies on 1Password to simplify security for
-          team members and their families with a password manager that secures
-          access to critical information at work, at the track, and at home.
-        </span>
-        <span class="info-url">Explore personal 화살표</span>
-      </div>
+        <div class="securing-info-item">
+          <img
+            class="info-img"
+            src="../assets/images/pictures/mornitor_1password.png"
+          />
+          <span class="info-subtitle">Password Manager</span>
+          <span class="info-title">Safeguard your digital life</span>
+          <span class="info-description">
+            Oracle Red Bull Racing relies on 1Password to simplify security for
+            team members and their families with a password manager that secures
+            access to critical information at work, at the track, and at home.
+          </span>
+          <span class="info-url">
+            Explore personal
+            <img class="" src="../assets/images/icons/arrow_right.svg" />
+          </span>
+        </div>
 
-      <div class="securing-info-container">
-        <span class="info-subtitle">EXTENDED ACCESS MANAGEMENT</span>
-        <span class="info-title">
-          Secure every sign-in to every app from every device
-        </span>
-        <span class="info-description">
-          1Password® Extended Access Management protects Oracle Red Bull Racing
-          by providing seamless, trusted access to its industry-leading software
-          and systems.
-        </span>
-        <span class="info-url">Explore business 화살표</span>
+        <div class="securing-info-item">
+          <img class="info-img" src="../assets/images/pictures/f1.jpg" />
+          <span class="info-subtitle">EXTENDED ACCESS MANAGEMENT</span>
+          <span class="info-title">
+            Secure every sign-in to every app from every device
+          </span>
+          <span class="info-description">
+            1Password® Extended Access Management protects Oracle Red Bull
+            Racing by providing seamless, trusted access to its industry-leading
+            software and systems.
+          </span>
+          <span class="info-url">
+            Explore business 화살표
+            <img class="" src="../assets/images/icons/arrow_right.svg" />
+          </span>
+        </div>
       </div>
     </div>
     <!-- ------------interview-container------------ -->
@@ -251,6 +264,105 @@
         max-width: 250px;
       }
     }
+  }
+
+  > .securing-container {
+    max-width: 1920px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    text-align: left;
+
+    > .securing-subtitle {
+      display: block;
+
+      color: #303136;
+      font-size: 11.81px;
+      font-weight: 400;
+      line-height: 19.2px;
+      letter-spacing: 0.6px;
+    }
+
+    > .securing-title {
+      width: 768px;
+
+      display: block;
+
+      color: #1a2552;
+      font-size: 67.07px;
+      line-height: 74.8px;
+      letter-spacing: -1.36px;
+    }
+
+    > .securing-description {
+      width: 710px;
+
+      display: block;
+
+      font-size: 19.22px;
+      line-height: 27px;
+      letter-spacing: -0.4px;
+    }
+
+    /////////////////
+
+    > .securing-info-container {
+      display: flex;
+      justify-content: center;
+
+      > .securing-info-item {
+        max-width: 607px;
+
+        overflow: hidden;
+
+        border-radius: 30px;
+        background-color: #d7d7db;
+
+        > .info-img {
+          width: 100%;
+        }
+
+        > .info-subtitle {
+          display: block;
+
+          color: #303136;
+          font-size: 10.69px;
+          line-height: 19.2px;
+          letter-spacing: 0.6px;
+        }
+        > .info-title {
+          display: block;
+
+          color: #1a2552;
+          font-size: 27.45px;
+          line-height: 33.6px;
+          letter-spacing: -0.56px;
+        }
+
+        > .info-description {
+          display: block;
+
+          color: #303136;
+          font-size: 19.38px;
+          line-height: 27px;
+          letter-spacing: -0.4px;
+        }
+
+        > .info-url {
+          display: block;
+
+          color: #0364d3;
+          font-size: 15.38px;
+          line-height: 24px;
+          letter-spacing: -0.32px;
+        }
+      }
+    }
+
+    /////////////////
+
+    /////////////////
   }
 }
 </style>
