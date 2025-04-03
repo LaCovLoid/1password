@@ -75,7 +75,10 @@
         class="interview-image"
       />
       <div class="interview-right">
-        <img src="../assets/images/logos/oracle_white.png" />
+        <img
+          class="interview-logo"
+          src="../assets/images/logos/oracle_white.png"
+        />
         <span class="interview-text">
           "We’re excited to welcome 1Password as our Exclusive Cybersecurity
           Partner. It is crucial that our entire organization has secure,
@@ -359,9 +362,70 @@
         }
       }
     }
+  }
+  /////////////////
 
-    /////////////////
+  > .interview-container {
+    max-width: 1980px;
 
+    padding-left: 24px;
+    padding-right: 24px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    display: flex;
+
+    > .interview-image {
+      width: 50%;
+
+      object-fit: cover;
+
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+    }
+
+    > .interview-right {
+      width: 50%;
+
+      padding: 64px;
+
+      color: #fffefb;
+      text-align: left;
+
+      background-color: #242529;
+
+      > .interview-logo {
+        width: 176px;
+      }
+
+      > .interview-text {
+        margin-top: 64px;
+        margin-bottom: 31.75px;
+
+        display: block;
+
+        font-size: 39.84px;
+        line-height: 44px;
+        letter-spacing: -0.8px;
+      }
+
+      > .interview-talker {
+        display: block;
+
+        font-size: 14.65px;
+        line-height: 22.5px;
+        letter-spacing: -0.3px;
+      }
+
+      > .interview-info {
+        display: block;
+
+        font-size: 13.56px;
+        line-height: 21px;
+        letter-spacing: -0.28px;
+      }
+    }
     /////////////////
   }
 }
