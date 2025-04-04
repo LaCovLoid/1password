@@ -162,7 +162,7 @@
     </div>
     <!-- ------------protect-container------------ -->
     <div class="introducing-container">
-      <div class="inside-box">
+      <div class="introducing-inside-box">
         <span class="introducing-subtitle"> NEW PRODUCT </span>
         <span class="introducing-title">
           Introducing 1Password Extended Access Management (XAM)
@@ -528,8 +528,10 @@
 
   /////////////////
   > .protect-container {
-    margin-left: 24px;
-    margin-right: 24px;
+    max-width: 1392px;
+
+    margin-left: auto;
+    margin-right: auto;
 
     padding: 72px;
 
@@ -579,12 +581,12 @@
       background-color: #ffffff;
 
       > .protect-management-img {
-        width: 50%;
+        max-width: 696px;
         height: auto;
       }
 
       > .protect-management-right {
-        width: 50%;
+        max-width: 696px;
         display: inline-block;
         text-align: left;
         vertical-align: top;
@@ -602,6 +604,75 @@
     }
   }
   /////////////////
+  > .introducing-container {
+    max-width: 1392px;
+    height: 783px;
+
+    padding-left: 48px;
+    padding-top: 48px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    background-image: url("../assets/images/pictures/wallpaper_1passowrd.webp");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    > .introducing-inside-box {
+      max-width: 576px;
+      width: 100%;
+
+      padding-top: 51px;
+      padding-left: 50px;
+      padding-bottom: 50px;
+
+      color: #fffefb;
+      text-align: left;
+      background-color: #1a285f;
+
+      > .introducing-subtitle {
+        display: block;
+
+        font-size: 10.69px;
+        line-height: 19.2px;
+        letter-spacing: 0.6px;
+      }
+
+      > .introducing-title {
+        display: block;
+
+        font-size: 38.59px;
+        line-height: 44px;
+        letter-spacing: -0.8px;
+      }
+
+      > .introducing-description {
+        display: block;
+
+        font-size: 19.53px;
+        line-height: 27px;
+        letter-spacing: -0.4px;
+      }
+
+      > .introducing-bt {
+        width: fit-content;
+
+        padding: 10px;
+        padding-left: 39.58px;
+        padding-right: 38.95px;
+
+        display: block;
+
+        color: #1a2552;
+        font-size: 15.38px;
+        line-height: 24px;
+        letter-spacing: 0px;
+
+        background-color: #85beff;
+      }
+    }
+  }
   /////////////////
   /////////////////
 }
