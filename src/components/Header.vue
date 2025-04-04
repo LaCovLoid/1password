@@ -130,13 +130,13 @@ onUnmounted(() => {
 
     position: fixed;
     top: 25px;
-
     left: 50%;
     transform: translateX(-50%);
 
     border-radius: 999px;
     overflow: hidden;
     background-color: #ffffff;
+    z-index: 999;
 
     > .left {
       display: flex;

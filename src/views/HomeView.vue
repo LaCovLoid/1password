@@ -95,17 +95,31 @@
     <div class="businesses-container">
       <span class="businesses-title"> 150,000 businesses trust 1Password </span>
       <div class="businesses-slide-track">
-        <!-- 로고 슬라이드 트랙 -->
+        <img
+          class="businesses-logo-image"
+          v-for="index in 6"
+          :key="index"
+          src="../assets/images/logos/slack.png"
+        />
       </div>
     </div>
 
     <!-- ------------reasons-container------------ -->
-    <div class="reasons-container">
-      <span class="reasons-title">Why people trust 1Password</span>
-      <div class="reasons-slide-track">
-        <!-- ------------ reasons 슬라이드 트랙------------ -->
-        <!-- ------------ reasons 버튼 트랙------------ -->
+    <div class="reason-container">
+      <span class="reason-title">Why people trust 1Password</span>
+      <div class="reason-carousel-track">
+        <div class="reason-carousel-item" v-for="index in 6" :key="index">
+          <span class="reason-carousel-item-title">
+            The most used enterprise password manager.
+          </span>
+          <img
+            class="reason-carousel-item-img"
+            src="../assets/images/logos/wired.png"
+          />
+        </div>
       </div>
+
+      <span class="reason-carousel-bt" v-for="index in 6" :key="index"> </span>
     </div>
     <!-- ------------protect-container------------ -->
     <div class="protect-container">
@@ -121,14 +135,18 @@
           <!--큰아이템1, 작은아이템3-->
           <span class="protect-password-bt"> Explore password manager </span>
         </div>
-        <div class="protect-password-right">
-          <img src="../assets/images/pictures/windows_picture.webp" />
-        </div>
+        <img
+          class="protect-password-img"
+          src="../assets/images/pictures/windows_picture.webp"
+        />
       </div>
+
       <div class="protect-management-container">
-        <div class="protect-management-left">
-          <img src="../assets/images/pictures/people_list.webp" />
-        </div>
+        <img
+          class="protect-management-img"
+          src="../assets/images/pictures/people_list.webp"
+        />
+
         <div class="protect-management-right">
           <span class="protect-management-subtitle">
             EXTENDED ACCESS MANAGEMENT
@@ -426,7 +444,165 @@
         letter-spacing: -0.28px;
       }
     }
-    /////////////////
   }
+  /////////////////
+
+  > .businesses-container {
+    > .businesses-title {
+      color: #1a2552;
+      font-size: 27.13px;
+      line-height: 33.6px;
+      letter-spacing: -0.56px;
+    }
+    > .businesses-slide-track {
+      height: 84px;
+
+      > .businesses-logo-image {
+        height: 100%;
+        margin-right: 64px;
+      }
+    }
+  }
+  /////////////////
+
+  > .reason-container {
+    max-width: 1920px;
+    width: 100%;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    overflow: hidden;
+
+    > .reason-title {
+      font-size: 38.59px;
+      letter-spacing: -0.8px;
+      line-height: 44px;
+    }
+
+    > .reason-carousel-track {
+      width: 100%;
+
+      position: relative;
+      left: calc(50% - 204px);
+
+      display: flex;
+
+      > .reason-carousel-item {
+        max-width: 408px;
+        min-width: 408px;
+        height: 421px;
+
+        padding: 32px;
+
+        margin-right: 26px;
+
+        text-align: left;
+        background-color: #94dae3;
+
+        > .reason-carousel-item-title {
+          font-size: 39.53px;
+          line-height: 44px;
+          letter-spacing: -0.8px;
+        }
+
+        > .reason-carousel-item-img {
+          height: 96px;
+        }
+      }
+    }
+
+    > .reason-carousel-bt {
+      width: 15px;
+      height: 15px;
+
+      margin-left: 7.5px;
+      margin-right: 7.5px;
+
+      display: inline-block;
+
+      border-radius: 999px;
+      background-color: #5780d4;
+    }
+  }
+
+  /////////////////
+  > .protect-container {
+    margin-left: 24px;
+    margin-right: 24px;
+
+    padding: 72px;
+
+    background-color: #e7f7f9;
+    border-radius: 20px;
+
+    > .protect-title {
+      width: 720px;
+
+      margin-left: auto;
+      margin-right: auto;
+
+      display: block;
+
+      font-size: 66.94px;
+      line-height: 74.8px;
+      letter-spacing: -1.36px;
+    }
+
+    > .protect-password-container {
+      background-color: #ffffff;
+
+      > .protect-password-left {
+        width: 50%;
+        display: inline-block;
+        text-align: left;
+        vertical-align: top;
+
+        > .protect-password-subtitle {
+          display: block;
+        }
+        > .protect-password-title {
+          display: block;
+        }
+
+        > .protect-password-bt {
+        }
+      }
+
+      > .protect-password-img {
+        width: 50%;
+        height: auto;
+      }
+    }
+
+    > .protect-management-container {
+      background-color: #ffffff;
+
+      > .protect-management-img {
+        width: 50%;
+        height: auto;
+      }
+
+      > .protect-management-right {
+        width: 50%;
+        display: inline-block;
+        text-align: left;
+        vertical-align: top;
+
+        > .protect-management-subtitle {
+          display: block;
+        }
+        > .protect-management-title {
+          display: block;
+        }
+
+        > .protect-management-bt {
+        }
+      }
+    }
+  }
+  /////////////////
+  /////////////////
+  /////////////////
 }
 </style>
