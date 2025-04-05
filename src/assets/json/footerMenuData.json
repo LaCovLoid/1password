@@ -83,18 +83,19 @@
         { "name": "1Password Marketplace", "url": "/" },
         { "name": "Affiliate", "url": "/" }
       ]
-    },
-    {
-      "name": "Downloads",
-      "subMenu": [
-        { "name": "macOS", "url": "/" },
-        { "name": "Windows", "url": "/" },
-        { "name": "iOS", "url": "/" },
-        { "name": "Android", "url": "/" },
-        { "name": "Browser", "url": "/" },
-        { "name": "Linux", "url": "/" },
-        { "name": "CLI", "url": "/" }
-      ]
     }
-  ]
+  ],
+
+  "downloadMenu": {
+    "name": "Downloads",
+    "subMenu": [
+      { "name": "macOS", "url": "/" },
+      { "name": "Windows", "url": "/" },
+      { "name": "iOS", "url": "/" },
+      { "name": "Android", "url": "/" },
+      { "name": "Browser", "url": "/" },
+      { "name": "Linux", "url": "/" },
+      { "name": "CLI", "url": "/" }
+    ]
+  }
 }
