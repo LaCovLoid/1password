@@ -1,8 +1,8 @@
 <template>
   <div class="footer-container">
     <div class="top">
-      <img src="../assets/images/logos/lock_hole_white.png" />
-      <span class="select-language"></span>
+      <img class="top-logo" src="../assets/images/logos/lock_hole_white.png" />
+      <span class="select-language">{{ selectedLanguage }}</span>
     </div>
 
     <div class="middle">
@@ -39,12 +39,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, type Ref } from "vue";
 import footerMenuData from "../assets/json/footerMenuData.json";
 import type { FooterMenuType } from "../types";
 
 const menuList = ref<FooterMenuType[]>(footerMenuData.menu);
 const downloadMenuList = ref<FooterMenuType>(footerMenuData.downloadMenu);
+
+const selectedLanguage: string = "English";
+const languages: Ref<string[]> = ref(["", ""]);
+const isOpenSelectedLanguage: Ref<boolean> = ref(false);
 </script>
 
 <style lang="scss" scoped>
@@ -63,33 +67,49 @@ const downloadMenuList = ref<FooterMenuType>(footerMenuData.downloadMenu);
   color: #fffefb;
 
   > .top {
+    max-width: 1248px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    display: flex;
+    justify-content: space-between;
+
+    > .top-logo {
+      width: 16px;
+      height: 16px;
+    }
   }
 
   > .middle {
-    height: 575px;
+    width: 100%;
+
+    margin-top: 48px;
 
     display: flex;
 
     > .menu-container {
-      max-width: 1248px;
+      max-width: 1040px;
+      //1248px - 188px - 24px
       width: 100%;
-      height: 100%;
 
       margin-left: auto;
 
-      column-width: 200px;
-      column-gap: 16px;
+      column-count: 5;
+      column-gap: 24px;
 
       > .menu-item {
-        width: 100%;
+        width: 188px;
         height: fit-content;
+
+        margin-bottom: 25px;
 
         text-align: left;
 
         break-inside: avoid;
 
         > .menu-item-title {
-          margin-bottom: 11.4px;
+          margin-bottom: 5.7px;
 
           display: block;
 
@@ -99,7 +119,8 @@ const downloadMenuList = ref<FooterMenuType>(footerMenuData.downloadMenu);
           letter-spacing: -0.36px;
         }
         > .menu-item-submenu {
-          margin-bottom: 11.4px;
+          padding-top: 5.7px;
+          padding-bottom: 5.7px;
 
           display: block;
 
@@ -114,9 +135,13 @@ const downloadMenuList = ref<FooterMenuType>(footerMenuData.downloadMenu);
     }
 
     > .download-container {
+      width: 188px;
       height: fit-content;
 
-      margin-left: 16px;
+      padding: 24px;
+      padding-bottom: 18.2px;
+
+      margin-left: 24px;
       margin-right: auto;
 
       text-align: left;
@@ -124,13 +149,27 @@ const downloadMenuList = ref<FooterMenuType>(footerMenuData.downloadMenu);
       background-color: #294d96;
 
       > .download-title {
+        padding-bottom: 6.3px;
+
         display: block;
+
+        font-size: 17.16px;
+        font-weight: 500;
+        line-height: 21.6px;
+        letter-spacing: -0.36px;
       }
 
       > .download-submenu {
+        padding-top: 5.8px;
+        padding-bottom: 5.8px;
+
         display: block;
 
         color: #fffefb;
+        font-size: 15.25px;
+        font-weight: 200;
+        line-height: 25.6px;
+        letter-spacing: -0.32px;
         text-decoration: none;
       }
     }
