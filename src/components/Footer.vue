@@ -85,6 +85,11 @@
               :to="item.url"
             >
               {{ item.name }}
+              <img
+                class="bottom-menu-item-icon"
+                v-if="item.name == 'Your Privacy Choices'"
+                src="../assets/images/icons/switch_v_x.png"
+              />
             </RouterLink>
           </div>
           <span class="locate">
@@ -135,8 +140,10 @@ const changeSelectedLanguage = (value: string) => {
 .footer-container {
   width: 100%;
 
-  padding: 96px;
+  padding-top: 72px;
+  padding-bottom: 96px;
 
+  margin-top: 47px;
   margin-left: auto;
   margin-right: auto;
 
@@ -151,6 +158,8 @@ const changeSelectedLanguage = (value: string) => {
 
     display: flex;
     justify-content: space-between;
+
+    align-items: center;
 
     > .top-logo {
       width: 16px;
@@ -309,9 +318,9 @@ const changeSelectedLanguage = (value: string) => {
     }
   }
   > .bottom {
-    width: 1248px;
+    max-width: 1248px;
 
-    margin-top: 64px;
+    margin-top: 78px;
     margin-left: auto;
     margin-right: auto;
 
@@ -326,7 +335,7 @@ const changeSelectedLanguage = (value: string) => {
         width: 50px;
         height: 50px;
 
-        margin-right: 10px;
+        margin-right: 8px;
       }
 
       > .logo-1password-text {
@@ -360,12 +369,24 @@ const changeSelectedLanguage = (value: string) => {
           flex-wrap: wrap;
 
           > .bottom-menu-item {
-            margin-right: 24px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+
+            margin-right: 25px;
+
+            display: block;
 
             color: #fffefb;
             font-size: 15px;
-            line-height: 36px;
             letter-spacing: -0.32px;
+
+            > .bottom-menu-item-icon {
+              width: 29px;
+              height: 14px;
+
+              vertical-align: middle;
+              margin-left: 8px;
+            }
           }
         }
 

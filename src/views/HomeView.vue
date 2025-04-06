@@ -290,6 +290,8 @@
   > .securing-container {
     max-width: 1920px;
 
+    padding-top: 131px;
+
     margin-left: auto;
     margin-right: auto;
 
@@ -384,10 +386,7 @@
   /////////////////
 
   > .interview-container {
-    max-width: 1980px;
-
-    padding-left: 24px;
-    padding-right: 24px;
+    max-width: 1392px;
 
     margin-left: auto;
     margin-right: auto;
@@ -536,7 +535,7 @@
     padding: 72px;
 
     background-color: #e7f7f9;
-    border-radius: 20px;
+    border-radius: 30px;
 
     > .protect-title {
       width: 720px;
@@ -618,6 +617,8 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
 
     > .introducing-inside-box {
       max-width: 576px;
