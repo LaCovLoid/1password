@@ -2,7 +2,30 @@
   <div class="footer-container">
     <div class="top">
       <img class="top-logo" src="../assets/images/logos/lock_hole_white.png" />
-      <span class="select-language">{{ selectedLanguage }}</span>
+      <span class="now-language" @click="inverseIsOpenLanguage">
+        {{ selectedLanguage }}
+        <img
+          class="language-chevron"
+          src="../assets/images/icons/chevron_bottom_white.svg"
+        />
+
+        <div class="language-list-container">
+          <span
+            class="language-list-item"
+            v-if="isOpenSelectedLanguage"
+            v-for="(item, index) in languageList"
+            :key="index"
+            @click="changeSelectedLanguage(item)"
+            :style="
+              selectedLanguage == item
+                ? { boxShadow: '0 0 0 2px rgba(0, 0, 0, 1)' }
+                : {}
+            "
+          >
+            {{ item }}
+          </span>
+        </div>
+      </span>
     </div>
 
     <div class="middle">
@@ -46,16 +69,23 @@ import type { FooterMenuType } from "../types";
 const menuList = ref<FooterMenuType[]>(footerMenuData.menu);
 const downloadMenuList = ref<FooterMenuType>(footerMenuData.downloadMenu);
 
-const selectedLanguage: string = "English";
-const languages: Ref<string[]> = ref(["", ""]);
+const selectedLanguage: Ref<string> = ref("English");
+const languageList: string[] = ["English", "Korean", "Japanese"];
 const isOpenSelectedLanguage: Ref<boolean> = ref(false);
+
+const inverseIsOpenLanguage = () => {
+  isOpenSelectedLanguage.value = !isOpenSelectedLanguage.value;
+};
+
+const changeSelectedLanguage = (value: string) => {
+  selectedLanguage.value = value;
+};
 </script>
 
 <style lang="scss" scoped>
 @use "@/global.scss" as *;
 
 .footer-container {
-  max-width: 1920px;
   width: 100%;
 
   padding: 96px;
@@ -78,6 +108,67 @@ const isOpenSelectedLanguage: Ref<boolean> = ref(false);
     > .top-logo {
       width: 16px;
       height: 16px;
+    }
+
+    > .now-language {
+      width: 128.8px;
+
+      padding-top: 12.5px;
+      padding-bottom: 13px;
+      padding-left: 17px;
+      padding-right: 21px;
+
+      display: flex;
+      justify-content: space-between;
+
+      position: relative;
+
+      font-size: 15.38px;
+      letter-spacing: -0.32px;
+
+      border-radius: 5px;
+      border: #fffefb 1px solid;
+
+      cursor: pointer;
+
+      > .language-chevron {
+        width: 10px;
+        height: 6px;
+
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: auto;
+      }
+
+      > .language-list-container {
+        position: absolute;
+        top: 60px;
+        left: 0px;
+
+        background-color: #fffefb;
+        border-radius: 5px;
+
+        > .language-list-item {
+          padding-top: 10px;
+          padding-bottom: 10px;
+          padding-left: 15px;
+          padding-right: 55px;
+
+          margin-top: 2px;
+          margin-bottom: 2px;
+
+          display: block;
+
+          color: #000000;
+          text-align: left;
+
+          border-radius: 5px;
+          transition: background-color 0.5s ease;
+        }
+        > .language-list-item:hover {
+          background-color: #a5c3ff;
+        }
+      }
     }
   }
 
