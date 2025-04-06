@@ -1,5 +1,5 @@
 {
-  "menu": [
+  "titleMenu": [
     {
       "name": "1Password products",
       "subMenu": [
@@ -97,5 +97,52 @@
       { "name": "Linux", "url": "/" },
       { "name": "CLI", "url": "/" }
     ]
-  }
+  },
+
+  "bottomMenu": [
+    { "name": "Terms of Service", "url": "/" },
+    { "name": "Cookie Policy", "url": "/" },
+    { "name": "Your Privacy Choices", "url": "/" },
+    { "name": "Privacy Policy", "url": "/" },
+    { "name": "Accessibility", "url": "/" },
+    { "name": "Sitemap", "url": "/" }
+  ],
+  "icon": [
+    {
+      "name": "twitter",
+      "url": "/",
+      "src": "src/assets/images/icons/twitter.svg"
+    },
+    {
+      "name": "mastodon",
+      "url": "/",
+      "src": "src/assets/images/icons/mastodon.svg"
+    },
+    {
+      "name": "reddit",
+      "url": "/",
+      "src": "src/assets/images/icons/reddit.svg"
+    },
+    {
+      "name": "youtube",
+      "url": "/",
+      "src": "src/assets/images/icons/youtube.svg"
+    },
+    {
+      "name": "github",
+      "url": "/",
+      "src": "src/assets/images/icons/github.svg"
+    },
+    {
+      "name": "linkedin",
+      "url": "/",
+      "src": "src/assets/images/icons/linkedin.svg"
+    },
+    {
+      "name": "instagram",
+      "url": "/",
+      "src": "src/assets/images/icons/instagram.svg"
+    },
+    { "name": "wifi", "url": "/", "src": "src/assets/images/icons/wifi.svg" }
+  ]
 }

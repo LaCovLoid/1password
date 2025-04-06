@@ -1,9 +1,10 @@
-export interface FooterMenuType {
+export interface FooterTitleMenuType {
   name: string;
-  subMenu: FooterSubMenuType[];
+  subMenu: FooterMenuType[];
 }
 
-export interface FooterSubMenuType {
+export interface FooterMenuType {
   name: string;
   url: string;
+  src?: string;
 }

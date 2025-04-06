@@ -18,7 +18,12 @@
             @click="changeSelectedLanguage(item)"
             :style="
               selectedLanguage == item
-                ? { boxShadow: '0 0 0 2px rgba(0, 0, 0, 1)' }
+                ? {
+                    boxShadow: '0 0 0 2px rgba(0, 0, 0, 1)',
+                    marginTop: '2px',
+                    marginBottom: '2px',
+                    borderRadius: '5px',
+                  }
                 : {}
             "
           >
@@ -30,7 +35,11 @@
 
     <div class="middle">
       <div class="menu-container">
-        <div class="menu-item" v-for="(item, index) in menuList" :key="index">
+        <div
+          class="menu-item"
+          v-for="(item, index) in middleMenuList"
+          :key="index"
+        >
           <span class="menu-item-title">
             {{ item.name }}
           </span>
@@ -57,17 +66,55 @@
       </div>
     </div>
 
-    <div class="bottom"></div>
+    <div class="bottom">
+      <div class="bottom-logo">
+        <img
+          class="logo-1password-img"
+          src="../assets/images/logos/lock_hole_white.png"
+        />
+        <span class="logo-1password-text">1Password</span>
+      </div>
+      <div class="gray-line"></div>
+      <div class="bottom-content">
+        <div class="left">
+          <div class="bottom-menu">
+            <RouterLink
+              class="bottom-menu-item"
+              v-for="(item, index) in bottomMenuList"
+              :key="index"
+              :to="item.url"
+            >
+              {{ item.name }}
+            </RouterLink>
+          </div>
+          <span class="locate">
+            © 2025 1Password. All rights reserved. 4711 Yonge St, 10th Floor,
+            Toronto Ontario, M2N 6K8, Canada
+          </span>
+        </div>
+        <div class="right">
+          <img
+            class="sns-icon"
+            v-for="(item, index) in bottomIconList"
+            :key="index"
+            :src="item.src"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, type Ref } from "vue";
 import footerMenuData from "../assets/json/footerMenuData.json";
-import type { FooterMenuType } from "../types";
+import type { FooterTitleMenuType, FooterMenuType } from "../types";
 
-const menuList = ref<FooterMenuType[]>(footerMenuData.menu);
-const downloadMenuList = ref<FooterMenuType>(footerMenuData.downloadMenu);
+const middleMenuList: FooterTitleMenuType[] = footerMenuData.titleMenu;
+const downloadMenuList: FooterTitleMenuType = footerMenuData.downloadMenu;
+
+const bottomIconList: FooterMenuType[] = footerMenuData.icon;
+const bottomMenuList: FooterMenuType[] = footerMenuData.bottomMenu;
 
 const selectedLanguage: Ref<string> = ref("English");
 const languageList: string[] = ["English", "Korean", "Japanese"];
@@ -152,17 +199,13 @@ const changeSelectedLanguage = (value: string) => {
           padding-top: 10px;
           padding-bottom: 10px;
           padding-left: 15px;
-          padding-right: 55px;
-
-          margin-top: 2px;
-          margin-bottom: 2px;
+          padding-right: 45px;
 
           display: block;
 
           color: #000000;
           text-align: left;
 
-          border-radius: 5px;
           transition: background-color 0.5s ease;
         }
         > .language-list-item:hover {
@@ -266,6 +309,90 @@ const changeSelectedLanguage = (value: string) => {
     }
   }
   > .bottom {
+    width: 1248px;
+
+    margin-top: 64px;
+    margin-left: auto;
+    margin-right: auto;
+
+    text-align: left;
+
+    > .bottom-logo {
+      display: flex;
+
+      margin-bottom: 32px;
+
+      > .logo-1password-img {
+        width: 50px;
+        height: 50px;
+
+        margin-right: 10px;
+      }
+
+      > .logo-1password-text {
+        margin-top: auto;
+        margin-bottom: auto;
+
+        font-size: 42px;
+        font-weight: 700;
+        letter-spacing: -1.6px;
+      }
+    }
+
+    > .gray-line {
+      width: 100%;
+      height: 1px;
+
+      border-top: 1px rgb(255, 255, 255, 0.1) solid;
+    }
+
+    > .bottom-content {
+      display: flex;
+      justify-content: space-between;
+
+      > .left {
+        width: 700px;
+
+        padding-top: 30px;
+
+        > .bottom-menu {
+          display: flex;
+          flex-wrap: wrap;
+
+          > .bottom-menu-item {
+            margin-right: 24px;
+
+            color: #fffefb;
+            font-size: 15px;
+            line-height: 36px;
+            letter-spacing: -0.32px;
+          }
+        }
+
+        > .locate {
+          margin-top: 8px;
+
+          display: block;
+
+          font-size: 13.34px;
+          letter-spacing: -0.32px;
+        }
+      }
+
+      > .right {
+        width: fit-content;
+
+        padding-top: 45px;
+
+        > .sns-icon {
+          width: 20px;
+          height: 20px;
+
+          margin-left: 12px;
+          margin-right: 12px;
+        }
+      }
+    }
   }
 }
 </style>
