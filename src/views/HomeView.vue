@@ -131,41 +131,72 @@
       <span class="protect-title">
         1Password protects your most sensitive info
       </span>
-      <div class="protect-password-container">
-        <div class="protect-password-left">
-          <span class="protect-password-subtitle"> PASSWORD MANAGEMENT </span>
-          <span class="protect-password-title">
+      <div class="protect-info-container">
+        <div class="protect-info-text-container">
+          <span class="protect-info-subtitle"> PASSWORD MANAGEMENT </span>
+          <span class="protect-info-title">
             Protect your passwords with a secure password manager
           </span>
-          <!--큰아이템1, 작은아이템3-->
-          <span class="protect-password-bt"> Explore password manager </span>
+          <div
+            class="protect-info-description"
+            v-for="(item, index) in protectFirstList"
+            :key="index"
+            :style="index == 0 ? { background: '#F6F8FC' } : {}"
+          >
+            <img
+              class="protect-info-description-icon"
+              :src="'src/assets/images/icons/' + item.iconUrl"
+            />
+            <span class="protect-info-description-title">
+              {{ item.title }}
+            </span>
+            <span class="protect-info-description-text" v-if="item.description">
+              {{ item.description }}
+            </span>
+          </div>
+          <span class="protect-info-bt"> Explore password manager </span>
         </div>
         <img
-          class="protect-password-img"
+          class="protect-info-img"
           src="../assets/images/pictures/windows_picture.webp"
         />
       </div>
 
-      <div class="protect-management-container">
+      <div class="protect-info-container">
         <img
-          class="protect-management-img"
+          class="protect-info-img"
           src="../assets/images/pictures/people_list.webp"
         />
 
-        <div class="protect-management-right">
-          <span class="protect-management-subtitle">
+        <div class="protect-info-text-container">
+          <span class="protect-info-subtitle">
             EXTENDED ACCESS MANAGEMENT
           </span>
-          <span class="protect-management-title">
+          <span class="protect-info-title">
             Secure every identity, device, and app with the future of access
             management.
           </span>
-          <!--큰아이템1, 작은아이템2-->
-          <span class="protect-management-bt"> Explore XAM </span>
+          <div
+            class="protect-info-description"
+            v-for="(item, index) in protectSecondList"
+            :key="index"
+          >
+            <img
+              class="protect-info-description-icon"
+              :src="'src/assets/images/icons/' + item.iconUrl"
+            />
+            <span class="protect-info-description-title">
+              {{ item.title }}
+            </span>
+            <span class="protect-info-description-text" v-if="item.description">
+              {{ item.description }}
+            </span>
+          </div>
+          <span class="protect-info-bt"> Explore XAM </span>
         </div>
       </div>
     </div>
-    <!-- ------------protect-container------------ -->
+    <!-- ------------introducing-container------------ -->
     <div class="introducing-container">
       <div class="introducing-inside-box">
         <span class="introducing-subtitle"> NEW PRODUCT </span>
@@ -182,7 +213,15 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import descriptionData from "../assets/json/DescriptionData.json";
+import type { DescriptionType } from "../types";
+
+const protectFirstList: DescriptionType[] =
+  descriptionData.protectFirstDescription;
+const protectSecondList: DescriptionType[] =
+  descriptionData.protectSecondDescription;
+</script>
 
 <style lang="scss" scoped>
 @use "@/global.scss" as *;
@@ -334,7 +373,9 @@
 
       display: block;
 
+      color: #303136;
       font-size: 19px;
+      font-weight: 300;
       line-height: 27px;
       letter-spacing: -0.4px;
     }
@@ -571,6 +612,7 @@
     margin-right: auto;
 
     padding: 72px;
+    padding-top: 127px;
 
     background-color: #e7f7f9;
     border-radius: 30px;
@@ -578,6 +620,7 @@
     > .protect-title {
       width: 720px;
 
+      margin-bottom: 96.7px;
       margin-left: auto;
       margin-right: auto;
 
@@ -588,62 +631,95 @@
       letter-spacing: -1.36px;
     }
 
-    > .protect-password-container {
-      background-color: #ffffff;
-      border: #d7d7db 1px solid;
+    > .protect-info-container {
+      height: 623px;
 
-      > .protect-password-left {
-        width: 50%;
-        display: inline-block;
-        text-align: left;
-        vertical-align: top;
-
-        > .protect-password-subtitle {
-          display: block;
-        }
-        > .protect-password-title {
-          display: block;
-        }
-
-        > .protect-password-bt {
-        }
-      }
-
-      > .protect-password-img {
-        width: 50%;
-        height: auto;
-      }
-    }
-
-    > .protect-management-container {
-      margin-top: 50px;
+      margin-top: 64px;
 
       background-color: #ffffff;
       border: #d7d7db 1px solid;
       border-radius: 20px;
+
       overflow: hidden;
 
-      > .protect-management-img {
-        max-width: 50%;
-        height: auto;
-        object-fit: cover;
-      }
-
-      > .protect-management-right {
+      > .protect-info-text-container {
         width: 50%;
+
+        padding-top: 76.31px;
+        padding-left: 49px;
+        padding-right: 48px;
+
         display: inline-block;
         text-align: left;
         vertical-align: top;
 
-        > .protect-management-subtitle {
-          display: block;
-        }
-        > .protect-management-title {
+        > .protect-info-subtitle {
           display: block;
         }
 
-        > .protect-management-bt {
+        > .protect-info-title {
+          margin-top: 23px;
+          margin-bottom: 32px;
+
+          display: block;
         }
+
+        > .protect-info-description {
+          color: #303136;
+
+          > .protect-info-description-icon {
+            width: 32px;
+            height: 32px;
+
+            margin-right: 8px;
+            margin-left: 8px;
+
+            vertical-align: middle;
+          }
+
+          > .protect-info-description-title {
+            padding-top: 8px;
+            padding-left: 8px;
+
+            display: inline-block;
+
+            font-size: 19.4px;
+            line-height: 27px;
+            letter-spacing: -0.4px;
+          }
+
+          > .protect-info-description-text {
+            padding-left: 56px;
+
+            display: block;
+
+            font-size: 13.67px;
+            line-height: 21px;
+            letter-spacing: -0.28px;
+          }
+        }
+
+        > .protect-info-bt {
+          width: fit-content;
+
+          padding-top: 12px;
+          padding-bottom: 12px;
+          padding-left: 20.5px;
+          padding-right: 20.5px;
+
+          margin-top: 34px;
+
+          display: block;
+
+          color: #fffefb;
+
+          background-color: #0364d3;
+          border-radius: 30px;
+        }
+      }
+
+      > .protect-info-img {
+        width: 623px;
       }
     }
   }

@@ -8,3 +8,9 @@ export interface FooterMenuType {
   url: string;
   src?: string;
 }
+
+export interface DescriptionType {
+  title: string;
+  iconUrl: string;
+  description?: string;
+}

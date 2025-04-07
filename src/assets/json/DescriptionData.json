@@ -1,0 +1,36 @@
+{
+  "protectFirstDescription": [
+    {
+      "title": "Store sensitive info and access it anywhere",
+      "iconUrl": "diary.svg",
+      "description": "Passwords, credit cards, and sensitive information – keep it all in one place and easily access it on any device with our password manager."
+    },
+    {
+      "title": "Share passwords and credentials securely",
+      "iconUrl": "lock.svg"
+    },
+    {
+      "title": "Track and address security risks",
+      "iconUrl": "circle_and_shield.svg"
+    },
+    {
+      "title": "Adapts to how you work",
+      "iconUrl": "notebook_person.svg"
+    }
+  ],
+  "protectSecondDescription": [
+    {
+      "title": "Secure your workforce",
+      "iconUrl": "shield_person.svg",
+      "description": "Extend single sign-on to every app, including unsanctioned ones, providing secure access to every website and app to mitigate vulnerabilities."
+    },
+    {
+      "title": "Secure your devices",
+      "iconUrl": "notebook_shield.svg"
+    },
+    {
+      "title": "Secure all apps",
+      "iconUrl": "shield.svg"
+    }
+  ]
+}
