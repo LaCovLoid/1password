@@ -37,34 +37,39 @@
             class="info-img"
             src="../assets/images/pictures/mornitor_1password.png"
           />
-          <span class="info-subtitle">Password Manager</span>
-          <span class="info-title">Safeguard your digital life</span>
-          <span class="info-description">
-            Oracle Red Bull Racing relies on 1Password to simplify security for
-            team members and their families with a password manager that secures
-            access to critical information at work, at the track, and at home.
-          </span>
-          <span class="info-url">
-            Explore personal
-            <img class="" src="../assets/images/icons/arrow_right.svg" />
-          </span>
+          <div class="info-bottom">
+            <span class="info-subtitle">Password Manager</span>
+            <span class="info-title">Safeguard your digital life</span>
+            <span class="info-description">
+              Oracle Red Bull Racing relies on 1Password to simplify security
+              for team members and their families with a password manager that
+              secures access to critical information at work, at the track, and
+              at home.
+            </span>
+            <span class="info-url">
+              Explore personal
+              <img class="arrow" src="../assets/images/icons/arrow_right.svg" />
+            </span>
+          </div>
         </div>
 
         <div class="securing-info-item">
           <img class="info-img" src="../assets/images/pictures/f1.jpg" />
-          <span class="info-subtitle">EXTENDED ACCESS MANAGEMENT</span>
-          <span class="info-title">
-            Secure every sign-in to every app from every device
-          </span>
-          <span class="info-description">
-            1Password® Extended Access Management protects Oracle Red Bull
-            Racing by providing seamless, trusted access to its industry-leading
-            software and systems.
-          </span>
-          <span class="info-url">
-            Explore business 화살표
-            <img class="" src="../assets/images/icons/arrow_right.svg" />
-          </span>
+          <div class="info-bottom">
+            <span class="info-subtitle">EXTENDED ACCESS MANAGEMENT</span>
+            <span class="info-title">
+              Secure every sign-in to every app from every device
+            </span>
+            <span class="info-description">
+              1Password® Extended Access Management protects Oracle Red Bull
+              Racing by providing seamless, trusted access to its
+              industry-leading software and systems.
+            </span>
+            <span class="info-url">
+              Explore business
+              <img class="arrow" src="../assets/images/icons/arrow_right.svg" />
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -288,8 +293,9 @@
   }
 
   > .securing-container {
-    max-width: 1920px;
+    max-width: 1392px;
 
+    padding: 72px;
     padding-top: 131px;
 
     margin-left: auto;
@@ -308,7 +314,10 @@
     }
 
     > .securing-title {
-      width: 768px;
+      width: 821px;
+
+      margin-top: 24px;
+      margin-bottom: 23.5px;
 
       display: block;
 
@@ -319,66 +328,80 @@
     }
 
     > .securing-description {
-      width: 710px;
+      width: 730px;
+
+      margin-bottom: 96.5px;
 
       display: block;
 
-      font-size: 19.22px;
+      font-size: 19px;
       line-height: 27px;
       letter-spacing: -0.4px;
     }
 
-    /////////////////
-
     > .securing-info-container {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
 
       > .securing-info-item {
-        max-width: 607px;
+        width: 608px;
+        height: 798px;
 
         overflow: hidden;
 
         border-radius: 30px;
-        background-color: #d7d7db;
+        border: #d7d7db 1px solid;
+        background-color: #f2f2f3;
 
         > .info-img {
           width: 100%;
         }
 
-        > .info-subtitle {
-          display: block;
+        > .info-bottom {
+          padding-top: 67px;
+          padding-left: 48px;
+          padding-right: 80px;
 
-          color: #303136;
-          font-size: 10.69px;
-          line-height: 19.2px;
-          letter-spacing: 0.6px;
-        }
-        > .info-title {
-          display: block;
+          > .info-subtitle {
+            display: block;
 
-          color: #1a2552;
-          font-size: 27.45px;
-          line-height: 33.6px;
-          letter-spacing: -0.56px;
-        }
+            color: #303136;
+            font-size: 10.69px;
+            line-height: 19.2px;
+            letter-spacing: 0.6px;
+          }
+          > .info-title {
+            display: block;
 
-        > .info-description {
-          display: block;
+            color: #1a2552;
+            font-size: 27.45px;
+            line-height: 33.6px;
+            letter-spacing: -0.56px;
+          }
 
-          color: #303136;
-          font-size: 19.38px;
-          line-height: 27px;
-          letter-spacing: -0.4px;
-        }
+          > .info-description {
+            display: block;
 
-        > .info-url {
-          display: block;
+            color: #303136;
+            font-size: 19.38px;
+            line-height: 27px;
+            letter-spacing: -0.5px;
+          }
 
-          color: #0364d3;
-          font-size: 15.38px;
-          line-height: 24px;
-          letter-spacing: -0.32px;
+          > .info-url {
+            margin-top: 53px;
+
+            display: block;
+
+            color: #0364d3;
+            font-size: 15.38px;
+            line-height: 24px;
+            letter-spacing: -0.32px;
+
+            > .arrow {
+              margin-left: 5px;
+            }
+          }
         }
       }
     }
@@ -423,6 +446,7 @@
         display: block;
 
         font-size: 39.84px;
+        font-weight: 200;
         line-height: 44px;
         letter-spacing: -0.8px;
       }
@@ -431,14 +455,16 @@
         display: block;
 
         font-size: 14.65px;
+        font-weight: 200;
         line-height: 22.5px;
         letter-spacing: -0.3px;
       }
 
-      > .interview-info {
+      > .talker-info {
         display: block;
 
         font-size: 13.56px;
+        font-weight: 100;
         line-height: 21px;
         letter-spacing: -0.28px;
       }
@@ -447,14 +473,20 @@
   /////////////////
 
   > .businesses-container {
+    padding-top: 128px;
+    padding-bottom: 56px;
+
     > .businesses-title {
       color: #1a2552;
       font-size: 27.13px;
       line-height: 33.6px;
       letter-spacing: -0.56px;
     }
+
     > .businesses-slide-track {
       height: 84px;
+
+      margin-top: 96px;
 
       > .businesses-logo-image {
         height: 100%;
@@ -465,8 +497,11 @@
   /////////////////
 
   > .reason-container {
-    max-width: 1920px;
+    max-width: 100%;
     width: 100%;
+
+    padding-top: 200px;
+    padding-bottom: 106px;
 
     margin-left: auto;
     margin-right: auto;
@@ -475,12 +510,15 @@
 
     > .reason-title {
       font-size: 38.59px;
-      letter-spacing: -0.8px;
       line-height: 44px;
+      letter-spacing: -0.8px;
     }
 
     > .reason-carousel-track {
       width: 100%;
+
+      margin-top: 84px;
+      margin-bottom: 42.5px;
 
       position: relative;
       left: calc(50% - 204px);
@@ -552,6 +590,7 @@
 
     > .protect-password-container {
       background-color: #ffffff;
+      border: #d7d7db 1px solid;
 
       > .protect-password-left {
         width: 50%;
@@ -577,15 +616,21 @@
     }
 
     > .protect-management-container {
+      margin-top: 50px;
+
       background-color: #ffffff;
+      border: #d7d7db 1px solid;
+      border-radius: 20px;
+      overflow: hidden;
 
       > .protect-management-img {
-        max-width: 696px;
+        max-width: 50%;
         height: auto;
+        object-fit: cover;
       }
 
       > .protect-management-right {
-        max-width: 696px;
+        width: 50%;
         display: inline-block;
         text-align: left;
         vertical-align: top;
