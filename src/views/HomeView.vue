@@ -99,30 +99,42 @@
     <!-- ------------businesses-container------------ -->
     <div class="businesses-container">
       <span class="businesses-title"> 150,000 businesses trust 1Password </span>
-      <div class="businesses-slide-track">
-        <img
-          class="businesses-logo-image"
-          v-for="index in 6"
+      <div class="businesses-slide-container">
+        <div
+          class="businesses-slide-track"
+          v-for="index in 8"
           :key="index"
-          src="../assets/images/logos/slack.png"
-        />
+          :style="{ left: -(1677.5 * 2) + index * 1677.5 + 'px' }"
+        >
+          <img
+            class="businesses-logo-image"
+            v-for="(item, index) in logoList"
+            :key="index"
+            :src="item"
+          />
+        </div>
       </div>
     </div>
 
     <!-- ------------reasons-container------------ -->
     <div class="reason-container">
       <span class="reason-title">Why people trust 1Password</span>
-      <div class="reason-carousel-track">
-        <div class="reason-carousel-item" v-for="index in 6" :key="index">
-          <span class="reason-carousel-item-title">
-            The most used enterprise password manager.
-          </span>
-          <img
-            class="reason-carousel-item-img"
-            src="../assets/images/logos/wired.png"
-          />
+
+      <!----------------------------------------------->
+
+      <div class="reason-carousel-track" ref="slideContainer">
+        <div
+          class="reason-carousel-item"
+          v-for="(slide, index) in clonedSlides"
+          :key="index"
+        >
+          슬라이드 {{ slide }}
         </div>
       </div>
+
+      <!----------------------------------------------->
+      <span @click="prevSlide">←</span>
+      <span @click="nextSlide">→</span>
 
       <span class="reason-carousel-bt" v-for="index in 6" :key="index"> </span>
     </div>
@@ -141,7 +153,9 @@
             class="protect-info-description"
             v-for="(item, index) in protectFirstList"
             :key="index"
-            :style="index == 0 ? { background: '#F6F8FC' } : {}"
+            :style="
+              index == 0 ? { background: '#F6F8FC' } : { marginBottom: '20px' }
+            "
           >
             <img
               class="protect-info-description-icon"
@@ -214,17 +228,80 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import descriptionData from "../assets/json/DescriptionData.json";
+import logoData from "../assets/json/LogoData.json";
 import type { DescriptionType } from "../types";
 
 const protectFirstList: DescriptionType[] =
   descriptionData.protectFirstDescription;
 const protectSecondList: DescriptionType[] =
   descriptionData.protectSecondDescription;
+
+const logoList: string[] = logoData.logos;
+
+///////////////////////////////////////////////
+import { onMounted, nextTick } from "vue";
+
+const originalSlides = [1, 2, 3, 4, 5, 6];
+const clonedSlides = [...originalSlides, ...originalSlides, ...originalSlides];
+
+const slideContainer: any = ref(null);
+const currentIndex = ref(1); // 0은 복제된 6번, 1은 진짜 1번
+const slideWidth = 428;
+
+const moveToSlide = (index: any) => {
+  if (!slideContainer.value) return;
+  slideContainer.value.style.transition = "transform 0.5s ease";
+  slideContainer.value.style.transform = `translateX(-${index * slideWidth}px)`;
+  currentIndex.value = index;
+};
+
+const nextSlide = () => {
+  if (currentIndex.value >= clonedSlides.length - 1) return;
+  moveToSlide(currentIndex.value + 1);
+};
+
+const prevSlide = () => {
+  if (currentIndex.value <= 0) return;
+  moveToSlide(currentIndex.value - 1);
+};
+
+// transition 끝났을 때 복제본 → 진짜 슬라이드 위치로 점프
+onMounted(() => {
+  nextTick(() => {
+    moveToSlide(currentIndex.value);
+    slideContainer.value.addEventListener("transitionend", () => {
+      if (currentIndex.value === clonedSlides.length - 1) {
+        // 마지막 → 진짜 1번으로 점프
+        slideContainer.value.style.transition = "none";
+        slideContainer.value.style.transform = `translateX(-${slideWidth}px)`;
+        currentIndex.value = 1;
+      }
+      if (currentIndex.value === 0) {
+        // 처음 → 진짜 6번으로 점프
+        slideContainer.value.style.transition = "none";
+        slideContainer.value.style.transform = `translateX(-${
+          (clonedSlides.length - 2) * slideWidth
+        }px)`;
+        currentIndex.value = clonedSlides.length - 2;
+      }
+    });
+  });
+});
 </script>
 
 <style lang="scss" scoped>
 @use "@/global.scss" as *;
+
+@keyframes moveLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-1677.5px);
+  }
+}
 
 .home-container {
   > .racingcar-container {
@@ -515,7 +592,6 @@ const protectSecondList: DescriptionType[] =
 
   > .businesses-container {
     padding-top: 128px;
-    padding-bottom: 56px;
 
     > .businesses-title {
       color: #1a2552;
@@ -524,14 +600,39 @@ const protectSecondList: DescriptionType[] =
       letter-spacing: -0.56px;
     }
 
-    > .businesses-slide-track {
-      height: 84px;
+    > .businesses-slide-container {
+      width: 100%;
+      height: 200px;
 
-      margin-top: 96px;
+      position: relative;
 
-      > .businesses-logo-image {
-        height: 100%;
-        margin-right: 64px;
+      display: flex;
+      overflow: hidden;
+
+      > .businesses-slide-track {
+        height: 84px;
+
+        margin-top: 96px;
+
+        position: absolute;
+        left: 0;
+
+        display: flex;
+
+        animation: moveLeft 10s linear infinite;
+
+        > .businesses-logo-image {
+          height: 100%;
+          margin-right: 64px;
+        }
+      }
+
+      > .logo-slide-second {
+        left: 1677.5px;
+      }
+
+      > .logo-slide-third {
+        left: 3355px;
       }
     }
   }
@@ -541,30 +642,33 @@ const protectSecondList: DescriptionType[] =
     max-width: 100%;
     width: 100%;
 
-    padding-top: 200px;
-    padding-bottom: 106px;
+    padding-top: 246px;
+    padding-bottom: 800px;
 
     margin-left: auto;
     margin-right: auto;
 
-    overflow: hidden;
+    position: relative;
+
+    //overflow: hidden;
 
     > .reason-title {
+      display: block;
+
       font-size: 38.59px;
       line-height: 44px;
       letter-spacing: -0.8px;
     }
 
+    > .reason-carousel-track-copy {
+      transform: translateX(50%);
+    }
+
     > .reason-carousel-track {
-      width: 100%;
-
-      margin-top: 84px;
-      margin-bottom: 42.5px;
-
-      position: relative;
-      left: calc(50% - 204px);
-
       display: flex;
+      position: absolute;
+      left: calc(50% + 204px + 20px);
+      top: 330px;
 
       > .reason-carousel-item {
         max-width: 408px;
@@ -573,12 +677,16 @@ const protectSecondList: DescriptionType[] =
 
         padding: 32px;
 
-        margin-right: 26px;
+        margin-right: 20px;
 
-        text-align: left;
+        //text-align: left;
+        text-align: center;
+
         background-color: #94dae3;
 
         > .reason-carousel-item-title {
+          display: block;
+
           font-size: 39.53px;
           line-height: 44px;
           letter-spacing: -0.8px;
@@ -594,10 +702,11 @@ const protectSecondList: DescriptionType[] =
       width: 15px;
       height: 15px;
 
+      margin-top: 500px;
       margin-left: 7.5px;
       margin-right: 7.5px;
 
-      display: inline-block;
+      display: block;
 
       border-radius: 999px;
       background-color: #5780d4;
@@ -655,13 +764,20 @@ const protectSecondList: DescriptionType[] =
 
         > .protect-info-subtitle {
           display: block;
+
+          font-size: 11px;
+          letter-spacing: 0.6px;
         }
 
         > .protect-info-title {
-          margin-top: 23px;
-          margin-bottom: 32px;
+          margin-top: 22px;
+          margin-bottom: 40px;
 
           display: block;
+
+          font-size: 27.23px;
+          line-height: 33.6px;
+          letter-spacing: -0.56px;
         }
 
         > .protect-info-description {
