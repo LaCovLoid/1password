@@ -122,13 +122,15 @@
 
       <!----------------------------------------------->
 
-      <div class="reason-carousel-track" ref="slideContainer">
-        <div
-          class="reason-carousel-item"
-          v-for="(slide, index) in clonedSlides"
-          :key="index"
-        >
-          슬라이드 {{ slide }}
+      <div class="reason-carousel-container" ref="slideContainer">
+        <div class="reason-carousel-track" v-for="index in 3" :key="index">
+          <div
+            class="reason-carousel-item"
+            v-for="(slide, index) in originalSlides"
+            :key="index"
+          >
+            슬라이드 {{ slide }}
+          </div>
         </div>
       </div>
 
@@ -244,21 +246,21 @@ const logoList: string[] = logoData.logos;
 import { onMounted, nextTick } from "vue";
 
 const originalSlides = [1, 2, 3, 4, 5, 6];
-const clonedSlides = [...originalSlides, ...originalSlides, ...originalSlides];
 
-const slideContainer: any = ref(null);
+const slideContainer: any = ref<HTMLElement | null>(null);
+
 const currentIndex = ref(1); // 0은 복제된 6번, 1은 진짜 1번
 const slideWidth = 428;
 
 const moveToSlide = (index: any) => {
   if (!slideContainer.value) return;
-  slideContainer.value.style.transition = "transform 0.5s ease";
+
   slideContainer.value.style.transform = `translateX(-${index * slideWidth}px)`;
   currentIndex.value = index;
 };
 
 const nextSlide = () => {
-  if (currentIndex.value >= clonedSlides.length - 1) return;
+  if (currentIndex.value >= originalSlides.length + 1) return;
   moveToSlide(currentIndex.value + 1);
 };
 
@@ -272,19 +274,19 @@ onMounted(() => {
   nextTick(() => {
     moveToSlide(currentIndex.value);
     slideContainer.value.addEventListener("transitionend", () => {
-      if (currentIndex.value === clonedSlides.length - 1) {
+      if (currentIndex.value == originalSlides.length + 1) {
         // 마지막 → 진짜 1번으로 점프
         slideContainer.value.style.transition = "none";
         slideContainer.value.style.transform = `translateX(-${slideWidth}px)`;
         currentIndex.value = 1;
       }
-      if (currentIndex.value === 0) {
+      if (currentIndex.value == 0) {
         // 처음 → 진짜 6번으로 점프
         slideContainer.value.style.transition = "none";
         slideContainer.value.style.transform = `translateX(-${
-          (clonedSlides.length - 2) * slideWidth
+          originalSlides.length * slideWidth
         }px)`;
-        currentIndex.value = clonedSlides.length - 2;
+        currentIndex.value = originalSlides.length;
       }
     });
   });
@@ -649,8 +651,7 @@ onMounted(() => {
     margin-right: auto;
 
     position: relative;
-
-    //overflow: hidden;
+    overflow: hidden;
 
     > .reason-title {
       display: block;
@@ -660,42 +661,51 @@ onMounted(() => {
       letter-spacing: -0.8px;
     }
 
-    > .reason-carousel-track-copy {
-      transform: translateX(50%);
-    }
-
-    > .reason-carousel-track {
-      display: flex;
+    > .reason-carousel-container {
       position: absolute;
-      left: calc(50% + 204px + 20px);
       top: 330px;
+      left: calc(50% - 204px);
 
-      > .reason-carousel-item {
-        max-width: 408px;
-        min-width: 408px;
-        height: 421px;
+      display: flex;
 
-        padding: 32px;
+      > .reason-carousel-track {
+        display: flex;
 
-        margin-right: 20px;
+        > .reason-carousel-item {
+          max-width: 408px;
+          min-width: 408px;
+          height: 421px;
 
-        //text-align: left;
-        text-align: center;
+          padding: 32px;
 
-        background-color: #94dae3;
+          margin-right: 20px;
 
-        > .reason-carousel-item-title {
-          display: block;
+          //text-align: left;
+          text-align: center;
 
-          font-size: 39.53px;
-          line-height: 44px;
-          letter-spacing: -0.8px;
-        }
+          transform: 0.5s ease;
+          background-color: #94dae3;
 
-        > .reason-carousel-item-img {
-          height: 96px;
+          > .reason-carousel-item-title {
+            display: block;
+
+            font-size: 39.53px;
+            line-height: 44px;
+            letter-spacing: -0.8px;
+          }
+
+          > .reason-carousel-item-img {
+            height: 96px;
+          }
         }
       }
+    }
+
+    > .reason-carousel-track-left {
+      left: -2568px;
+    }
+    > .reason-carousel-track-right {
+      right: 2568px;
     }
 
     > .reason-carousel-bt {
