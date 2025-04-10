@@ -9,8 +9,15 @@ export interface FooterMenuType {
   src?: string;
 }
 
-export interface DescriptionType {
+export interface ProtectDescriptionType {
   title: string;
   iconUrl: string;
   description?: string;
+}
+
+export interface ReasonDescriptionType {
+  width: string;
+  text: string;
+  img: string;
+  backgroundImg?: string;
 }

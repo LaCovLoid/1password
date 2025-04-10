@@ -122,14 +122,16 @@
 
       <!----------------------------------------------->
 
-      <div class="reason-carousel-container" ref="slideContainer">
+      <div class="reason-carousel-container" ref="reasonCarouselContainer">
         <div class="reason-carousel-track" v-for="index in 3" :key="index">
           <div
             class="reason-carousel-item"
-            v-for="(slide, index) in originalSlides"
+            v-for="(item, index) in reasonDescription"
             :key="index"
+            :style="{ width: item.width + 'px' }"
           >
-            슬라이드 {{ slide }}
+            {{ index }}<br />
+            {{ item.text }}
           </div>
         </div>
       </div>
@@ -138,7 +140,13 @@
       <span @click="prevSlide">←</span>
       <span @click="nextSlide">→</span>
 
-      <span class="reason-carousel-bt" v-for="index in 6" :key="index"> </span>
+      <span
+        class="reason-carousel-bt"
+        v-for="index in 6"
+        :key="index"
+        @click="selectedCarousel(index)"
+      >
+      </span>
     </div>
     <!-- ------------protect-container------------ -->
     <div class="protect-container">
@@ -230,37 +238,40 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, nextTick } from "vue";
 import descriptionData from "../assets/json/DescriptionData.json";
 import logoData from "../assets/json/LogoData.json";
-import type { DescriptionType } from "../types";
+import type { ProtectDescriptionType, ReasonDescriptionType } from "../types";
 
-const protectFirstList: DescriptionType[] =
+const protectFirstList: ProtectDescriptionType[] =
   descriptionData.protectFirstDescription;
-const protectSecondList: DescriptionType[] =
+const protectSecondList: ProtectDescriptionType[] =
   descriptionData.protectSecondDescription;
+
+const reasonDescription: ReasonDescriptionType[] =
+  descriptionData.reasonDescription;
 
 const logoList: string[] = logoData.logos;
 
+const selectedCarousel = (selectedIndex) => {};
 ///////////////////////////////////////////////
-import { onMounted, nextTick } from "vue";
 
-const originalSlides = [1, 2, 3, 4, 5, 6];
+const reasonCarouselContainer: any = ref<HTMLElement | null>(null);
 
-const slideContainer: any = ref<HTMLElement | null>(null);
-
-const currentIndex = ref(1); // 0은 복제된 6번, 1은 진짜 1번
+const currentIndex = ref(1); // 0= left 6, 7= right 1
 const slideWidth = 428;
 
 const moveToSlide = (index: any) => {
-  if (!slideContainer.value) return;
+  if (!reasonCarouselContainer.value) return;
 
-  slideContainer.value.style.transform = `translateX(-${index * slideWidth}px)`;
+  reasonCarouselContainer.value.style.transform = `translateX(-${
+    index * slideWidth
+  }px)`;
   currentIndex.value = index;
 };
 
 const nextSlide = () => {
-  if (currentIndex.value >= originalSlides.length + 1) return;
+  if (currentIndex.value >= reasonCarouselContainer.length + 1) return;
   moveToSlide(currentIndex.value + 1);
 };
 
@@ -269,25 +280,28 @@ const prevSlide = () => {
   moveToSlide(currentIndex.value - 1);
 };
 
-// transition 끝났을 때 복제본 → 진짜 슬라이드 위치로 점프
-onMounted(() => {
-  nextTick(() => {
-    moveToSlide(currentIndex.value);
-    slideContainer.value.addEventListener("transitionend", () => {
-      if (currentIndex.value == originalSlides.length + 1) {
-        // 마지막 → 진짜 1번으로 점프
-        slideContainer.value.style.transition = "none";
-        slideContainer.value.style.transform = `translateX(-${slideWidth}px)`;
-        currentIndex.value = 1;
-      }
-      if (currentIndex.value == 0) {
-        // 처음 → 진짜 6번으로 점프
-        slideContainer.value.style.transition = "none";
-        slideContainer.value.style.transform = `translateX(-${
-          originalSlides.length * slideWidth
-        }px)`;
-        currentIndex.value = originalSlides.length;
-      }
+nextTick(() => {
+  moveToSlide(currentIndex.value);
+  reasonCarouselContainer.value.addEventListener("transitionend", () => {
+    if (currentIndex.value == reasonCarouselContainer.length + 1) {
+      // 마지막 → 진짜 1번으로 점프
+      reasonCarouselContainer.value.style.transition = "none";
+      reasonCarouselContainer.value.style.transform = `translateX(-${slideWidth}px)`;
+      currentIndex.value = 1;
+    }
+    if (currentIndex.value == 0) {
+      // 처음 → 진짜 6번으로 점프
+      reasonCarouselContainer.value.style.transition = "none";
+      reasonCarouselContainer.value.style.transform = `translateX(-${
+        reasonCarouselContainer.length * slideWidth
+      }px)`;
+      currentIndex.value = reasonCarouselContainer.length;
+    }
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        reasonCarouselContainer.value.style.transition = "transform 0.5s ease";
+      });
     });
   });
 });
@@ -664,16 +678,15 @@ onMounted(() => {
     > .reason-carousel-container {
       position: absolute;
       top: 330px;
-      left: calc(50% - 204px);
+      left: -1811px;
 
       display: flex;
+      transition: transform 0.5s ease;
 
       > .reason-carousel-track {
         display: flex;
 
         > .reason-carousel-item {
-          max-width: 408px;
-          min-width: 408px;
           height: 421px;
 
           padding: 32px;
@@ -683,7 +696,6 @@ onMounted(() => {
           //text-align: left;
           text-align: center;
 
-          transform: 0.5s ease;
           background-color: #94dae3;
 
           > .reason-carousel-item-title {

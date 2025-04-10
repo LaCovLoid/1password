@@ -32,5 +32,38 @@
       "title": "Secure all apps",
       "iconUrl": "shield.svg"
     }
+  ],
+  "reasonDescription": [
+    {
+      "width": "408",
+      "text": "A reputation for fast, reliable, and transparent customer support",
+      "img": "/src/assets/images/icons/chat.svg"
+    },
+    {
+      "width": "408",
+      "text": "The most used enterprise password manager.",
+      "img": "/src/assets/images/logos/source.svg"
+    },
+    {
+      "width": "408",
+      "text": "Rated best password manager by Wired",
+      "img": "/src/assets/images/logos/wired.png"
+    },
+    {
+      "width": "816",
+      "text": "Rated best password manager by Wired",
+      "img": "/src/assets/images/logos/wired.png",
+      "backgroundImg": "/src/assets/images/pictures/206percent.png"
+    },
+    {
+      "width": "408",
+      "text": "Rated best password manager by Wired",
+      "img": "/src/assets/images/logos/wired.png"
+    },
+    {
+      "width": "408",
+      "text": "Rated best password manager by Wired",
+      "img": "/src/assets/images/logos/wired.png"
+    }
   ]
 }
