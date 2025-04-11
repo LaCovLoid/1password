@@ -282,11 +282,12 @@ const moveCarousel = () => {
     "translateX(calc(-" + totalMoveWidth + "px - 3190px))";
 };
 
+const calcCarouselStyle = () => {};
+
 const getCarouselStyle = () => {
-  const lastX = moveValue.value + firstX;
   return {
     left: "50%",
-    transform: "translateX(" + lastX + "px)",
+    transform: "translateX(" + firstX + "px)",
   };
 };
 
@@ -743,6 +744,8 @@ nextTick(() => {
       left: calc(-50% - 1320px);
 
       display: flex;
+      left: 50%;
+      transform: translateX(-3190px);
       transition: transform 0.5s ease;
 
       user-select: none;
