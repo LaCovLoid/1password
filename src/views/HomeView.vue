@@ -135,7 +135,7 @@
             :style="{ width: item.width + 'px' }"
             ref="reasonCarouselItem"
           >
-            {{ index }}<br />
+            {{ item.text }}<br />
             {{ itemIndex }} <br />
             {{ item.text }}
           </div>
@@ -241,7 +241,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick, onMounted, onBeforeUnmount } from "vue";
+import { ref, nextTick, onMounted, onBeforeUnmount, type Ref } from "vue";
 import descriptionData from "../assets/json/DescriptionData.json";
 import logoData from "../assets/json/LogoData.json";
 import type { ProtectDescriptionType, ReasonDescriptionType } from "../types";
@@ -283,8 +283,56 @@ const moveCarousel = () => {
 };
 
 const getCarouselStyle = () => {
-  return { left: "50%", transform: "translateX(-3190px)" };
+  const lastX = moveValue.value + firstX;
+  return {
+    left: "50%",
+    transform: "translateX(" + lastX + "px)",
+  };
 };
+
+//마우스 이벤트
+const firstX = -3190;
+const moveValue: Ref<number> = ref(0);
+const isDragging = ref(false);
+const startX = ref(0);
+
+const onMouseDown = (e: MouseEvent) => {
+  isDragging.value = true;
+  startX.value = e.clientX;
+};
+
+const onMouseMove = (e: MouseEvent) => {
+  if (!isDragging.value) return;
+  moveValue.value = e.clientX - startX.value;
+};
+
+const onMouseUp = () => {
+  if (!isDragging.value) return;
+  isDragging.value = false;
+
+  const threshold = 500; // 움직인 거리 임계값
+
+  if (moveValue.value > threshold) {
+    // 오른쪽으로 한 칸
+    selectCarousel(selectedCarouselIndex.value - 1);
+  } else if (moveValue.value < -threshold) {
+    // 왼쪽으로 한 칸
+    selectCarousel(selectedCarouselIndex.value + 1);
+  } else {
+    // 움직인 게 작으면 제자리
+    selectCarousel(selectedCarouselIndex.value);
+  }
+
+  moveValue.value = 0;
+};
+
+onMounted(() => {
+  // 이벤트 바인딩
+  const container = reasonCarouselContainer.value;
+  container?.addEventListener("mousedown", onMouseDown);
+  window.addEventListener("mousemove", onMouseMove);
+  window.addEventListener("mouseup", onMouseUp);
+});
 
 /*
 nextTick(() => {
@@ -692,6 +740,9 @@ nextTick(() => {
 
       display: flex;
       transition: transform 0.5s ease;
+
+      user-select: none;
+      -webkit-user-drag: none;
 
       > .reason-carousel-track {
         display: flex;
