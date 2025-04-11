@@ -122,29 +122,34 @@
 
       <!----------------------------------------------->
 
-      <div class="reason-carousel-container" ref="reasonCarouselContainer">
+      <div
+        class="reason-carousel-container"
+        ref="reasonCarouselContainer"
+        :style="getCarouselStyle()"
+      >
+        //carousel시작위치가 이상해, 2번버튼 누르면 위치 이상해, 옆으로 움직이는
+        폭 마진 수정해야해
         <div class="reason-carousel-track" v-for="index in 3" :key="index">
           <div
             class="reason-carousel-item"
             v-for="(item, index) in reasonDescription"
             :key="index"
             :style="{ width: item.width + 'px' }"
+            ref="reasonCarouselItem"
           >
             {{ index }}<br />
+            {{ selectedCarouselIndex }} <br />
             {{ item.text }}
           </div>
         </div>
       </div>
 
       <!----------------------------------------------->
-      <span @click="prevSlide">←</span>
-      <span @click="nextSlide">→</span>
-
       <span
         class="reason-carousel-bt"
         v-for="index in 6"
         :key="index"
-        @click="selectedCarousel(index)"
+        @click="selectCarousel(index)"
       >
       </span>
     </div>
@@ -253,35 +258,34 @@ const reasonDescription: ReasonDescriptionType[] =
 
 const logoList: string[] = logoData.logos;
 
-const selectedCarousel = (selectedIndex) => {};
+const reasonCarouselContainer: any = ref<HTMLElement | null>(null);
+const reasonCarouselItem: any = ref<HTMLElement[]>([]);
+
+const selectedCarouselIndex = ref(1);
+
+const selectCarousel = (value: number) => {
+  selectedCarouselIndex.value = value;
+  moveCarousel();
+};
+
+const moveCarousel = () => {
+  var totalWidth: number = 0;
+  for (var i = 0; i < selectedCarouselIndex.value; i++) {
+    totalWidth += reasonCarouselItem.value[i].offsetWidth + 20;
+  }
+
+  reasonCarouselContainer.value.style.transform = `translateX(-${totalWidth}px)`;
+};
+
+const getCarouselStyle = () => {
+  return { backgroundColor: "red" };
+};
 ///////////////////////////////////////////////
 
-const reasonCarouselContainer: any = ref<HTMLElement | null>(null);
-
-const currentIndex = ref(1); // 0= left 6, 7= right 1
-const slideWidth = 428;
-
-const moveToSlide = (index: any) => {
-  if (!reasonCarouselContainer.value) return;
-
-  reasonCarouselContainer.value.style.transform = `translateX(-${
-    index * slideWidth
-  }px)`;
-  currentIndex.value = index;
-};
-
-const nextSlide = () => {
-  if (currentIndex.value >= reasonCarouselContainer.length + 1) return;
-  moveToSlide(currentIndex.value + 1);
-};
-
-const prevSlide = () => {
-  if (currentIndex.value <= 0) return;
-  moveToSlide(currentIndex.value - 1);
-};
-
+/*
 nextTick(() => {
   moveToSlide(currentIndex.value);
+
   reasonCarouselContainer.value.addEventListener("transitionend", () => {
     if (currentIndex.value == reasonCarouselContainer.length + 1) {
       // 마지막 → 진짜 1번으로 점프
@@ -305,6 +309,7 @@ nextTick(() => {
     });
   });
 });
+*/
 </script>
 
 <style lang="scss" scoped>
@@ -713,13 +718,6 @@ nextTick(() => {
       }
     }
 
-    > .reason-carousel-track-left {
-      left: -2568px;
-    }
-    > .reason-carousel-track-right {
-      right: 2568px;
-    }
-
     > .reason-carousel-bt {
       width: 15px;
       height: 15px;
@@ -728,7 +726,7 @@ nextTick(() => {
       margin-left: 7.5px;
       margin-right: 7.5px;
 
-      display: block;
+      display: inline-block;
 
       border-radius: 999px;
       background-color: #5780d4;
