@@ -297,6 +297,8 @@ const isDragging = ref(false);
 const startX = ref(0);
 
 const onMouseDown = (e: MouseEvent) => {
+  reasonCarouselContainer.value.style.transition = "none";
+
   isDragging.value = true;
   startX.value = e.clientX;
 };
@@ -310,7 +312,9 @@ const onMouseUp = () => {
   if (!isDragging.value) return;
   isDragging.value = false;
 
-  const threshold = 500; // 움직인 거리 임계값
+  reasonCarouselContainer.value.style.transition = "transform 0.5s ease";
+
+  const threshold = 400; // 움직인 거리 임계값
 
   if (moveValue.value > threshold) {
     // 오른쪽으로 한 칸
