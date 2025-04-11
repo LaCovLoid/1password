@@ -127,18 +127,16 @@
         ref="reasonCarouselContainer"
         :style="getCarouselStyle()"
       >
-        //carousel시작위치가 이상해, 2번버튼 누르면 위치 이상해, 옆으로 움직이는
-        폭 마진 수정해야해
         <div class="reason-carousel-track" v-for="index in 3" :key="index">
           <div
             class="reason-carousel-item"
-            v-for="(item, index) in reasonDescription"
-            :key="index"
+            v-for="(item, itemIndex) in reasonDescription"
+            :key="itemIndex"
             :style="{ width: item.width + 'px' }"
             ref="reasonCarouselItem"
           >
             {{ index }}<br />
-            {{ selectedCarouselIndex }} <br />
+            {{ itemIndex }} <br />
             {{ item.text }}
           </div>
         </div>
@@ -243,10 +241,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick } from "vue";
+import { ref, nextTick, onMounted, onBeforeUnmount } from "vue";
 import descriptionData from "../assets/json/DescriptionData.json";
 import logoData from "../assets/json/LogoData.json";
 import type { ProtectDescriptionType, ReasonDescriptionType } from "../types";
+import { transform } from "typescript";
 
 const protectFirstList: ProtectDescriptionType[] =
   descriptionData.protectFirstDescription;
@@ -269,18 +268,23 @@ const selectCarousel = (value: number) => {
 };
 
 const moveCarousel = () => {
-  var totalWidth: number = 0;
-  for (var i = 0; i < selectedCarouselIndex.value; i++) {
-    totalWidth += reasonCarouselItem.value[i].offsetWidth + 20;
+  var totalMoveWidth: number = 0;
+  for (var i = 0; i < selectedCarouselIndex.value - 1; i++) {
+    totalMoveWidth += reasonCarouselItem.value[i].offsetWidth + 20;
   }
 
-  reasonCarouselContainer.value.style.transform = `translateX(-${totalWidth}px)`;
+  if (reasonCarouselItem.value[i].offsetWidth > 408) {
+    totalMoveWidth =
+      totalMoveWidth + reasonCarouselItem.value[i].offsetWidth / 4;
+  }
+
+  reasonCarouselContainer.value.style.transform =
+    "translateX(calc(-" + totalMoveWidth + "px - 3190px))";
 };
 
 const getCarouselStyle = () => {
-  return { backgroundColor: "red" };
+  return { left: "50%", transform: "translateX(-3190px)" };
 };
-///////////////////////////////////////////////
 
 /*
 nextTick(() => {
@@ -288,13 +292,13 @@ nextTick(() => {
 
   reasonCarouselContainer.value.addEventListener("transitionend", () => {
     if (currentIndex.value == reasonCarouselContainer.length + 1) {
-      // 마지막 → 진짜 1번으로 점프
+      // 마지막에서서 1번으로 몰래 보냄냄
       reasonCarouselContainer.value.style.transition = "none";
       reasonCarouselContainer.value.style.transform = `translateX(-${slideWidth}px)`;
       currentIndex.value = 1;
     }
     if (currentIndex.value == 0) {
-      // 처음 → 진짜 6번으로 점프
+      // 처음에서 6번으로 몰래 보냄냄
       reasonCarouselContainer.value.style.transition = "none";
       reasonCarouselContainer.value.style.transform = `translateX(-${
         reasonCarouselContainer.length * slideWidth
@@ -302,6 +306,7 @@ nextTick(() => {
       currentIndex.value = reasonCarouselContainer.length;
     }
 
+    // 한 애니메이션이 끝나고 종료가 된 후에 원래 효과로 돌려보내서 효과 유지
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         reasonCarouselContainer.value.style.transition = "transform 0.5s ease";
@@ -683,7 +688,7 @@ nextTick(() => {
     > .reason-carousel-container {
       position: absolute;
       top: 330px;
-      left: -1811px;
+      left: calc(-50% - 1320px);
 
       display: flex;
       transition: transform 0.5s ease;
@@ -698,8 +703,7 @@ nextTick(() => {
 
           margin-right: 20px;
 
-          //text-align: left;
-          text-align: center;
+          text-align: left;
 
           background-color: #94dae3;
 
