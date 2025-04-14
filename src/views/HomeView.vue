@@ -122,11 +122,7 @@
 
       <!----------------------------------------------->
 
-      <div
-        class="reason-carousel-container"
-        ref="reasonCarouselContainer"
-        :style="getCarouselStyle()"
-      >
+      <div class="reason-carousel-container" ref="reasonCarouselContainer">
         <div class="reason-carousel-track" v-for="index in 3" :key="index">
           <div
             class="reason-carousel-item"
@@ -147,7 +143,7 @@
         class="reason-carousel-bt"
         v-for="index in 6"
         :key="index"
-        @click="selectCarousel(index)"
+        @click="selectCarousel(index + 6)"
       >
       </span>
     </div>
@@ -260,39 +256,62 @@ const logoList: string[] = logoData.logos;
 const reasonCarouselContainer: any = ref<HTMLElement | null>(null);
 const reasonCarouselItem: any = ref<HTMLElement[]>([]);
 
-const selectedCarouselIndex = ref(1);
+const selectedCarouselIndex = ref(7);
 
 const selectCarousel = (value: number) => {
   selectedCarouselIndex.value = value;
+  console.log(selectedCarouselIndex.value);
   moveCarousel();
 };
 
 const moveCarousel = () => {
   var totalMoveWidth: number = 0;
-  for (var i = 0; i < selectedCarouselIndex.value - 1; i++) {
-    totalMoveWidth += reasonCarouselItem.value[i].offsetWidth + 20;
-  }
 
-  if (reasonCarouselItem.value[i].offsetWidth > 408) {
-    totalMoveWidth =
-      totalMoveWidth + reasonCarouselItem.value[i].offsetWidth / 4;
+  var i = 0;
+  while (i < selectedCarouselIndex.value - 1) {
+    totalMoveWidth += reasonCarouselItem.value[i].offsetWidth + 20;
+    i++;
   }
+  totalMoveWidth =
+    totalMoveWidth +
+    reasonCarouselItem.value[selectedCarouselIndex.value - 1].offsetWidth / 2;
 
   reasonCarouselContainer.value.style.transform =
-    "translateX(calc(-" + totalMoveWidth + "px - 3190px))";
+    "translateX(-" + totalMoveWidth + "px)";
+
+  nowLocate.value = totalMoveWidth;
+
+  setCarouselLocateX(totalMoveWidth);
 };
 
-const calcCarouselStyle = () => {};
-
-const getCarouselStyle = () => {
-  return {
-    left: "50%",
-    transform: "translateX(" + firstX + "px)",
-  };
+const setCarouselLocateX = (value: number) => {
+  reasonCarouselContainer.value.style.transform =
+    "translateX(-" + value + "px)";
 };
+
+/*
+const testDragMove = () => {
+  const style = getComputedStyle(reasonCarouselContainer.value);
+  const transform = style.transform; // 예: matrix(1, 0, 0, 1, -200, 0)
+  const match = transform.match(/matrix.*\((.+)\)/);
+
+  let currentX = 0;
+
+  if (match) {
+    const values = match[1].split(", ");
+    currentX = parseFloat(values[4]); // translateX 위치
+  }
+
+  const totalMoveValue = currentX + moveValue.value;
+
+  reasonCarouselContainer.value.style.transform =
+    "translateX(calc(-" + moveValue.value + "px))";
+};
+*/
 
 //마우스 이벤트
-const firstX = -3190;
+const nowLocate: Ref<number> = ref(0);
+
 const moveValue: Ref<number> = ref(0);
 const isDragging = ref(false);
 const startX = ref(0);
@@ -307,6 +326,8 @@ const onMouseDown = (e: MouseEvent) => {
 const onMouseMove = (e: MouseEvent) => {
   if (!isDragging.value) return;
   moveValue.value = e.clientX - startX.value;
+
+  setCarouselLocateX(nowLocate.value - moveValue.value);
 };
 
 const onMouseUp = () => {
@@ -315,7 +336,7 @@ const onMouseUp = () => {
 
   reasonCarouselContainer.value.style.transition = "transform 0.5s ease";
 
-  const threshold = 400; // 움직인 거리 임계값
+  const threshold = 200; // 움직인 거리 임계값
 
   if (moveValue.value > threshold) {
     // 오른쪽으로 한 칸
@@ -332,6 +353,7 @@ const onMouseUp = () => {
 };
 
 onMounted(() => {
+  selectCarousel(7);
   // 이벤트 바인딩
   const container = reasonCarouselContainer.value;
   container?.addEventListener("mousedown", onMouseDown);
@@ -745,7 +767,6 @@ nextTick(() => {
 
       display: flex;
       left: 50%;
-      transform: translateX(-3190px);
       transition: transform 0.5s ease;
 
       user-select: none;
