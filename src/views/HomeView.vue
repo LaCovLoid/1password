@@ -122,7 +122,11 @@
 
       <!----------------------------------------------->
 
-      <div class="reason-carousel-container" ref="reasonCarouselContainer">
+      <div
+        class="reason-carousel-container"
+        ref="reasonCarouselContainer"
+        @transitionend="onTransitionEnd"
+      >
         <div class="reason-carousel-track" v-for="index in 3" :key="index">
           <div
             class="reason-carousel-item"
@@ -241,7 +245,6 @@ import { ref, nextTick, onMounted, onBeforeUnmount, type Ref } from "vue";
 import descriptionData from "../assets/json/DescriptionData.json";
 import logoData from "../assets/json/LogoData.json";
 import type { ProtectDescriptionType, ReasonDescriptionType } from "../types";
-import { transform } from "typescript";
 
 const protectFirstList: ProtectDescriptionType[] =
   descriptionData.protectFirstDescription;
@@ -289,26 +292,6 @@ const setCarouselLocateX = (value: number) => {
     "translateX(-" + value + "px)";
 };
 
-/*
-const testDragMove = () => {
-  const style = getComputedStyle(reasonCarouselContainer.value);
-  const transform = style.transform; // 예: matrix(1, 0, 0, 1, -200, 0)
-  const match = transform.match(/matrix.*\((.+)\)/);
-
-  let currentX = 0;
-
-  if (match) {
-    const values = match[1].split(", ");
-    currentX = parseFloat(values[4]); // translateX 위치
-  }
-
-  const totalMoveValue = currentX + moveValue.value;
-
-  reasonCarouselContainer.value.style.transform =
-    "translateX(calc(-" + moveValue.value + "px))";
-};
-*/
-
 //마우스 이벤트
 const nowLocate: Ref<number> = ref(0);
 
@@ -330,13 +313,15 @@ const onMouseMove = (e: MouseEvent) => {
   setCarouselLocateX(nowLocate.value - moveValue.value);
 };
 
+//  const 5초동안 안되게 하는 변수 정해서 mouseDown을 못하게하면됨
 const onMouseUp = () => {
   if (!isDragging.value) return;
+
   isDragging.value = false;
 
   reasonCarouselContainer.value.style.transition = "transform 0.5s ease";
 
-  const threshold = 200; // 움직인 거리 임계값
+  const threshold = 400; // 움직인 거리 임계값
 
   if (moveValue.value > threshold) {
     // 오른쪽으로 한 칸
@@ -352,6 +337,24 @@ const onMouseUp = () => {
   moveValue.value = 0;
 };
 
+//selectedCarouselIndex가 범위내에서만 작동하도록 조정
+const onTransitionEnd = () => {
+  // 마지막 아이템으로 갔을 때 원래 위치로 되돌리기
+  if (selectedCarouselIndex.value >= reasonDescription.length * 2 + 1) {
+    reasonCarouselContainer.value.style.transition = "none"; // transition 꺼두기
+    selectedCarouselIndex.value -= reasonDescription.length; // 마지막에서 돌아올 때
+    selectCarousel(selectedCarouselIndex.value); // 선택된 index로 이동
+  }
+
+  // transition이 없을 경우에만 다시 애니메이션 활성화
+  if (getComputedStyle(reasonCarouselContainer.value).transition == "none") {
+    // 애니메이션을 끄고 나서 transition을 다시 활성화
+    reasonCarouselContainer.value.style.transition = "transform 0.5s ease";
+  }
+};
+
+// transition이 끝날 때까지 기다린 후 다음 작업을 실행
+
 onMounted(() => {
   selectCarousel(7);
   // 이벤트 바인딩
@@ -360,36 +363,6 @@ onMounted(() => {
   window.addEventListener("mousemove", onMouseMove);
   window.addEventListener("mouseup", onMouseUp);
 });
-
-/*
-nextTick(() => {
-  moveToSlide(currentIndex.value);
-
-  reasonCarouselContainer.value.addEventListener("transitionend", () => {
-    if (currentIndex.value == reasonCarouselContainer.length + 1) {
-      // 마지막에서서 1번으로 몰래 보냄냄
-      reasonCarouselContainer.value.style.transition = "none";
-      reasonCarouselContainer.value.style.transform = `translateX(-${slideWidth}px)`;
-      currentIndex.value = 1;
-    }
-    if (currentIndex.value == 0) {
-      // 처음에서 6번으로 몰래 보냄냄
-      reasonCarouselContainer.value.style.transition = "none";
-      reasonCarouselContainer.value.style.transform = `translateX(-${
-        reasonCarouselContainer.length * slideWidth
-      }px)`;
-      currentIndex.value = reasonCarouselContainer.length;
-    }
-
-    // 한 애니메이션이 끝나고 종료가 된 후에 원래 효과로 돌려보내서 효과 유지
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        reasonCarouselContainer.value.style.transition = "transform 0.5s ease";
-      });
-    });
-  });
-});
-*/
 </script>
 
 <style lang="scss" scoped>
