@@ -132,12 +132,21 @@
             class="reason-carousel-item"
             v-for="(item, itemIndex) in reasonDescription"
             :key="itemIndex"
-            :style="{ width: item.width + 'px' }"
+            :style="{
+              width: item.width + 'px',
+            }"
             ref="reasonCarouselItem"
           >
-            {{ item.text }}<br />
-            {{ itemIndex }} <br />
-            {{ item.text }}
+            <img
+              class="reason-carousel-item-bgimg"
+              v-if="item.backgroundImg"
+              :src="item.backgroundImg"
+              draggable="false"
+            ></img>
+            <span class="reason-carousel-item-title">
+              {{ item.text }}
+            </span>
+            <img class="reason-carousel-item-img" :src="item.img" draggable="false"/>
           </div>
         </div>
       </div>
@@ -717,7 +726,7 @@ onMounted(() => {
     width: 100%;
 
     padding-top: 246px;
-    padding-bottom: 800px;
+    padding-bottom: 120px;
 
     margin-left: auto;
     margin-right: auto;
@@ -752,14 +761,30 @@ onMounted(() => {
           height: 421px;
 
           padding: 32px;
-
           margin-right: 20px;
+
+          position: relative;
 
           text-align: left;
 
-          background-color: #94dae3;
+          background: linear-gradient(
+            to top right,
+            #fbf6ee 0%,
+            #fcf0d5 33%,
+            #cadafa 100%
+          );
+
+          > .reason-carousel-item-bgimg {
+            height: 300px;
+
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+          }
 
           > .reason-carousel-item-title {
+            width: 344px;
+
             display: block;
 
             font-size: 39.53px;
@@ -769,6 +794,10 @@ onMounted(() => {
 
           > .reason-carousel-item-img {
             height: 96px;
+            
+            position: absolute;
+            bottom: 32px;
+
           }
         }
       }
