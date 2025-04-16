@@ -59,22 +59,21 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, type Ref } from "vue";
 const fixedMenu: any = ref<HTMLElement | null>(null);
-
+const isClosed: Ref<boolean> = ref(false);
+const scrollY = ref(0);
 const menuList: Ref<string[]> = ref([
   "Why 1Password",
   "Products",
   "Resources",
   "Pricing",
 ]);
-
-const isClosed: Ref<boolean> = ref(false);
+let lastScrollTop: number = 0;
+let isHidden: boolean = false;
 
 const closed = () => {
   isClosed.value = true;
   updateScroll();
 };
-
-const scrollY = ref(0);
 
 const scrolledStyle: any = ref({
   position: "absolute",
@@ -104,23 +103,22 @@ const updateScroll = () => {
       top: "89px",
     };
   }
+
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+  if (scrollTop > lastScrollTop && scrollTop > 300 && !isHidden) {
+    fixedMenu.value.style.transform = "translateX(-50%) translateY(-100px)";
+    isHidden = true;
+  } else if (scrollTop < lastScrollTop && scrollTop > 100 && isHidden) {
+    fixedMenu.value.style.transform = "translateX(-50%) translateY(0)";
+    isHidden = false;
+  }
+
+  lastScrollTop = Math.max(scrollTop, 0); // iOS 바운스 방지 ??
 };
 
 onMounted(() => {
   window.addEventListener("scroll", updateScroll);
-  let lastScrollTop = 0;
-
-  window.addEventListener("scroll", function () {
-    let scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-    if (scrollTop > 300 && scrollTop > lastScrollTop) {
-      fixedMenu.value.style.transform = "translateX(-50%) translateY(-100px)";
-    } else if (scrollTop < lastScrollTop && scrollTop < 300) {
-      fixedMenu.value.style.transform = "translateX(-50%) translateY(0)";
-    }
-
-    lastScrollTop = scrollTop;
-  });
 });
 
 onUnmounted(() => {
