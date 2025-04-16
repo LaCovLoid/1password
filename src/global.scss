@@ -4,14 +4,8 @@ $white-color: #ffffff;
 $black-color: #000000;
 */
 
-@mixin minimize1200() {
+@mixin minimize() {
   @media (max-width: 1200px) {
-    @content;
-  }
-}
-
-@mixin minimize800() {
-  @media (max-width: 800px) {
     @content;
   }
 }

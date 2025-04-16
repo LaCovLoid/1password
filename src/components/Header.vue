@@ -67,7 +67,7 @@ const menuList: Ref<string[]> = ref([
   "Resources",
   "Pricing",
 ]);
-let lastScrollTop: number = 0;
+let lastScrollTop: Ref<number> = ref(0);
 let isHidden: boolean = false;
 
 const closed = () => {
@@ -83,15 +83,29 @@ const scrolledStyle: any = ref({
 const updateScroll = () => {
   scrollY.value = window.scrollY;
 
+  // 위로 올렸다 내렸다다
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+  if (scrollTop > lastScrollTop.value && scrollTop > 500 && !isHidden) {
+    fixedMenu.value.style.transform = "translateX(-50%) translateY(-100px)";
+    isHidden = true;
+  } else if (scrollTop < lastScrollTop.value && scrollTop > 300 && isHidden) {
+    fixedMenu.value.style.transform = "translateX(-50%) translateY(0)";
+    isHidden = false;
+  }
+
+  lastScrollTop.value = Math.max(scrollTop, 0); // iOS 바운스 방지
+
+  // alert 닫히면 fixed 고정
   if (isClosed.value) {
     scrolledStyle.value = {
       position: "fixed",
       top: "25px",
     };
-
     return;
   }
 
+  // 스크롤 64px 넘으면 fixed
   if (scrollY.value > 64) {
     scrolledStyle.value = {
       position: "fixed",
@@ -103,18 +117,7 @@ const updateScroll = () => {
       top: "89px",
     };
   }
-
-  const scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-  if (scrollTop > lastScrollTop && scrollTop > 300 && !isHidden) {
-    fixedMenu.value.style.transform = "translateX(-50%) translateY(-100px)";
-    isHidden = true;
-  } else if (scrollTop < lastScrollTop && scrollTop > 100 && isHidden) {
-    fixedMenu.value.style.transform = "translateX(-50%) translateY(0)";
-    isHidden = false;
-  }
-
-  lastScrollTop = Math.max(scrollTop, 0); // iOS 바운스 방지 ??
+  console.log("실행");
 };
 
 onMounted(() => {

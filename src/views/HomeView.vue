@@ -407,13 +407,10 @@ onMounted(() => {
     background-size: cover;
     background-color: #242529;
 
-    @include minimize1200 {
-      height: 650px;
-    }
-
-    @include minimize800 {
+    @include minimize {
       height: 677.4px;
     }
+
 
     > .racingcar-left {
       padding-left: 94px;
