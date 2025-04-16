@@ -5,6 +5,7 @@
       class="menu-container"
       :style="scrolledStyle"
       :class="{ 'alert-closed': isClosed }"
+      ref="fixedMenu"
     >
       <div class="left">
         <router-link to="/" class="logo">
@@ -57,6 +58,7 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, type Ref } from "vue";
+const fixedMenu: any = ref<HTMLElement | null>(null);
 
 const menuList: Ref<string[]> = ref([
   "Why 1Password",
@@ -106,6 +108,19 @@ const updateScroll = () => {
 
 onMounted(() => {
   window.addEventListener("scroll", updateScroll);
+  let lastScrollTop = 0;
+
+  window.addEventListener("scroll", function () {
+    let scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+    if (scrollTop > 300 && scrollTop > lastScrollTop) {
+      fixedMenu.value.style.transform = "translateX(-50%) translateY(-100px)";
+    } else if (scrollTop < lastScrollTop && scrollTop < 300) {
+      fixedMenu.value.style.transform = "translateX(-50%) translateY(0)";
+    }
+
+    lastScrollTop = scrollTop;
+  });
 });
 
 onUnmounted(() => {
@@ -132,6 +147,7 @@ onUnmounted(() => {
     top: 25px;
     left: 50%;
     transform: translateX(-50%);
+    transition: transform 0.3s ease;
 
     border-radius: 999px;
     overflow: hidden;
