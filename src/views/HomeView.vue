@@ -409,12 +409,20 @@ onMounted(() => {
 
     @include minimize {
       height: 677.4px;
+
+      flex-wrap: wrap;
     }
 
 
     > .racingcar-left {
       padding-left: 94px;
       padding-bottom: 98px;
+
+      @include minimize {
+        order: 2;
+
+        padding-left: 0;
+      }
 
       > .racingcar-title {
         display: block;
@@ -442,6 +450,10 @@ onMounted(() => {
         margin-top: 34.4px;
 
         display: flex;
+
+        @include minimize {
+          flex-wrap: wrap;
+        }
 
         > .racingcar-bt {
           width: 204px;
@@ -482,6 +494,10 @@ onMounted(() => {
       padding-right: 70px;
       padding-bottom: 48px;
 
+      @include minimize {
+        order: 1;
+      }
+
       > .racingcar-logo {
         max-width: 250px;
       }
@@ -510,7 +526,7 @@ onMounted(() => {
     }
 
     > .securing-title {
-      width: 821px;
+      max-width: 821px;
 
       margin-top: 24px;
       margin-bottom: 23.5px;
@@ -521,10 +537,14 @@ onMounted(() => {
       font-size: 67.07px;
       line-height: 74.8px;
       letter-spacing: -1.36px;
+
+      @include minimize {
+        font-size: 35.58px;
+      }
     }
 
     > .securing-description {
-      width: 730px;
+      max-width: 730px;
 
       margin-bottom: 96.5px;
 
@@ -614,6 +634,10 @@ onMounted(() => {
 
     display: flex;
 
+    @include minimize {
+      flex-wrap: wrap;
+    }
+
     > .interview-image {
       width: 50%;
 
@@ -621,6 +645,10 @@ onMounted(() => {
 
       border-top-left-radius: 20px;
       border-bottom-left-radius: 20px;
+
+      @include minimize {
+        width: 100%;
+      }
     }
 
     > .interview-right {
@@ -632,6 +660,11 @@ onMounted(() => {
       text-align: left;
 
       background-color: #242529;
+
+      
+      @include minimize {
+        width: 100%;
+      }
 
       > .interview-logo {
         width: 176px;
@@ -829,7 +862,7 @@ onMounted(() => {
     border-radius: 30px;
 
     > .protect-title {
-      width: 720px;
+      max-width: 720px;
 
       margin-bottom: 96.7px;
       margin-left: auto;

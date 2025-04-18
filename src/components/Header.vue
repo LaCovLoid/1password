@@ -1,5 +1,22 @@
 <template>
   <div class="header-container">
+    <!-- -------------------- alert - container -------------------- -->
+    <div class="alert-container" v-if="!isClosed">
+      <span class="alert-text">
+        1Password is now the exclusive Cybersecurity Partner of Oracle Red Bull
+        Racing!
+      </span>
+      <router-link to="/" class="alert-router"
+        >Learn more
+        <img src="../assets/images/icons/arrow_right.svg" class="arrow-right" />
+      </router-link>
+      <img
+        class="cross-bt"
+        src="../assets/images/icons/cross.svg"
+        @click="closed()"
+      />
+    </div>
+
     <!-- -------------------- menu - container -------------------- -->
     <div
       class="menu-container"
@@ -36,23 +53,6 @@
         <span class="right-bt">Get started free</span>
       </div>
     </div>
-
-    <!-- -------------------- alert - container -------------------- -->
-    <div class="alert-container" v-if="!isClosed">
-      <span class="alert-text">
-        1Password is now the exclusive Cybersecurity Partner of Oracle Red Bull
-        Racing!
-      </span>
-      <router-link to="/" class="alert-router"
-        >Learn more
-        <img src="../assets/images/icons/arrow_right.svg" class="arrow-right" />
-      </router-link>
-      <img
-        class="cross-bt"
-        src="../assets/images/icons/cross.svg"
-        @click="closed()"
-      />
-    </div>
   </div>
 </template>
 
@@ -77,7 +77,6 @@ const closed = () => {
 
 const scrolledStyle: any = ref({
   position: "absolute",
-  top: "89px",
 });
 
 const updateScroll = () => {
@@ -100,7 +99,6 @@ const updateScroll = () => {
   if (isClosed.value) {
     scrolledStyle.value = {
       position: "fixed",
-      top: "25px",
     };
     return;
   }
@@ -109,12 +107,10 @@ const updateScroll = () => {
   if (scrollY.value > 64) {
     scrolledStyle.value = {
       position: "fixed",
-      top: "25px",
     };
   } else {
     scrolledStyle.value = {
       position: "absolute",
-      top: "89px",
     };
   }
   console.log("실행");
@@ -145,7 +141,6 @@ onUnmounted(() => {
     justify-content: space-between;
 
     position: fixed;
-    top: 25px;
     left: 50%;
     transform: translateX(-50%);
     transition: transform 0.3s ease;
@@ -154,6 +149,10 @@ onUnmounted(() => {
     overflow: hidden;
     background-color: #ffffff;
     z-index: 999;
+
+    @include minimize {
+      width: calc(100% - 24px);
+    }
 
     > .left {
       display: flex;

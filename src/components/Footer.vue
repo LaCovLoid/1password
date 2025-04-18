@@ -42,27 +42,35 @@
         >
           <span class="menu-item-title">
             {{ item.name }}
+            <img
+              class="menu-title-chevron"
+              src="../assets/images/icons/chevron_bottom_white.png"
+            />
           </span>
-          <RouterLink
-            class="menu-item-submenu"
-            v-for="(subItem, subIndex) in item.subMenu"
-            :key="subIndex"
-            :to="subItem.url"
-          >
-            {{ subItem.name }}
-          </RouterLink>
+          <div class="menu-item-submenu-container">
+            <RouterLink
+              class="menu-item-submenu"
+              v-for="(subItem, subIndex) in item.subMenu"
+              :key="subIndex"
+              :to="subItem.url"
+            >
+              {{ subItem.name }}
+            </RouterLink>
+          </div>
         </div>
       </div>
       <div class="download-container">
-        <span class="download-title">Download</span>
-        <RouterLink
-          class="download-submenu"
-          v-for="(item, index) in downloadMenuList.subMenu"
-          :key="index"
-          :to="item.url"
-        >
-          {{ item.name }}
-        </RouterLink>
+        <span class="download-title">Download </span>
+        <div class="menu-item-submenu-container">
+          <RouterLink
+            class="download-submenu"
+            v-for="(item, index) in downloadMenuList.subMenu"
+            :key="index"
+            :to="item.url"
+          >
+            {{ item.name }}
+          </RouterLink>
+        </div>
       </div>
     </div>
 
@@ -231,6 +239,10 @@ const changeSelectedLanguage = (value: string) => {
 
     display: flex;
 
+    @include minimize {
+      flex-wrap: wrap;
+    }
+
     > .menu-container {
       max-width: 1040px;
       //1248px - 188px - 24px
@@ -241,14 +253,26 @@ const changeSelectedLanguage = (value: string) => {
       column-count: 5;
       column-gap: 24px;
 
+      @include minimize {
+        column-count: auto;
+        column-gap: 0;
+
+        display: grid;
+        grid-template-rows: repeat(4, auto);
+        grid-auto-flow: column;
+
+        order: 2;
+      }
+
       > .menu-item {
         width: 188px;
         height: fit-content;
 
         margin-bottom: 25px;
 
-        text-align: left;
+        position: relative;
 
+        text-align: left;
         break-inside: avoid;
 
         > .menu-item-title {
@@ -260,19 +284,33 @@ const changeSelectedLanguage = (value: string) => {
           font-weight: 500;
           line-height: 21.6px;
           letter-spacing: -0.36px;
+
+          > .menu-title-chevron {
+            display: none;
+
+            @include minimize {
+              display: inline-block;
+            }
+          }
         }
-        > .menu-item-submenu {
-          padding-top: 5.7px;
-          padding-bottom: 5.7px;
+        > .menu-item-submenu-container {
+          @include minimize {
+            position: absolute;
+            display: none;
+          }
+          > .menu-item-submenu {
+            padding-top: 5.7px;
+            padding-bottom: 5.7px;
 
-          display: block;
+            display: block;
 
-          color: #fffefb;
-          font-size: 15.25px;
-          font-weight: 200;
-          line-height: 25.6px;
-          letter-spacing: -0.32px;
-          text-decoration: none;
+            color: #fffefb;
+            font-size: 15.25px;
+            font-weight: 200;
+            line-height: 25.6px;
+            letter-spacing: -0.32px;
+            text-decoration: none;
+          }
         }
       }
     }
@@ -291,6 +329,10 @@ const changeSelectedLanguage = (value: string) => {
 
       background-color: #294d96;
 
+      @include minimize {
+        order: 1;
+      }
+
       > .download-title {
         padding-bottom: 6.3px;
 
@@ -302,18 +344,26 @@ const changeSelectedLanguage = (value: string) => {
         letter-spacing: -0.36px;
       }
 
-      > .download-submenu {
-        padding-top: 5.8px;
-        padding-bottom: 5.8px;
+      > .menu-item-submenu-container {
+        @include minimize {
+          display: grid;
+          grid-template-rows: repeat(4, auto);
+          grid-auto-flow: column;
+        }
 
-        display: block;
+        > .download-submenu {
+          padding-top: 5.8px;
+          padding-bottom: 5.8px;
 
-        color: #fffefb;
-        font-size: 15.25px;
-        font-weight: 200;
-        line-height: 25.6px;
-        letter-spacing: -0.32px;
-        text-decoration: none;
+          display: block;
+
+          color: #fffefb;
+          font-size: 15.25px;
+          font-weight: 200;
+          line-height: 25.6px;
+          letter-spacing: -0.32px;
+          text-decoration: none;
+        }
       }
     }
   }
@@ -359,6 +409,10 @@ const changeSelectedLanguage = (value: string) => {
       display: flex;
       justify-content: space-between;
 
+      @include minimize {
+        flex-wrap: wrap;
+      }
+
       > .left {
         width: 700px;
 
@@ -367,6 +421,12 @@ const changeSelectedLanguage = (value: string) => {
         > .bottom-menu {
           display: flex;
           flex-wrap: wrap;
+
+          @include minimize {
+            display: grid;
+            grid-template-rows: repeat(3, auto);
+            grid-auto-flow: column;
+          }
 
           > .bottom-menu-item {
             padding-top: 8px;
