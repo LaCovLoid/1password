@@ -1,7 +1,7 @@
 <template>
   <div class="header-container">
     <!-- -------------------- alert - container -------------------- -->
-    <div class="alert-container" v-if="!isClosed">
+    <div class="alert-container" v-if="!isClosed" ref="alertContainer">
       <span class="alert-text">
         1Password is now the exclusive Cybersecurity Partner of Oracle Red Bull
         Racing!
@@ -59,6 +59,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, type Ref } from "vue";
 const fixedMenu: any = ref<HTMLElement | null>(null);
+const alertContainer: any = ref<HTMLElement | null>(null);
 const isClosed: Ref<boolean> = ref(false);
 const scrollY = ref(0);
 const menuList: Ref<string[]> = ref([
@@ -85,7 +86,7 @@ const updateScroll = () => {
   // 위로 올렸다 내렸다다
   const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
-  if (scrollTop > lastScrollTop.value && scrollTop > 500 && !isHidden) {
+  if (scrollTop > lastScrollTop.value && scrollTop > 300 && !isHidden) {
     fixedMenu.value.style.transform = "translateX(-50%) translateY(-100px)";
     isHidden = true;
   } else if (scrollTop < lastScrollTop.value && scrollTop > 300 && isHidden) {
@@ -103,14 +104,18 @@ const updateScroll = () => {
     return;
   }
 
-  // 스크롤 64px 넘으면 fixed
-  if (scrollY.value > 64) {
+
+  const alertContainerHeight: number = alertContainer.value.offsetHeight;
+
+  if (scrollY.value > alertContainerHeight) {
     scrolledStyle.value = {
       position: "fixed",
+      top: "0px",
     };
   } else {
     scrolledStyle.value = {
       position: "absolute",
+      top: String(alertContainerHeight) + "px",
     };
   }
   console.log("실행");
@@ -118,10 +123,12 @@ const updateScroll = () => {
 
 onMounted(() => {
   window.addEventListener("scroll", updateScroll);
+  window.addEventListener('resize', updateScroll);
 });
 
 onUnmounted(() => {
   window.removeEventListener("scroll", updateScroll);
+  window.removeEventListener('resize', updateScroll);
 });
 </script>
 
@@ -136,6 +143,8 @@ onUnmounted(() => {
     width: calc(100% - 144px);
 
     padding-left: 24px;
+
+    margin-top: 20px;
 
     display: flex;
     justify-content: space-between;
