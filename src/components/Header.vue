@@ -1,15 +1,19 @@
 <template>
   <div class="header-container">
     <!-- -------------------- alert - container -------------------- -->
-    <div class="alert-container" v-if="!isClosed" ref="alertContainer">
+    <div class="alert-container" v-if="!isAlertClosed" ref="alertContainer">
       <span class="alert-text">
         1Password is now the exclusive Cybersecurity Partner of Oracle Red Bull
         Racing!
+
+        <router-link to="/" class="alert-router"
+          >Learn more
+          <img
+            src="../assets/images/icons/arrow_right.svg"
+            class="arrow-right"
+          />
+        </router-link>
       </span>
-      <router-link to="/" class="alert-router"
-        >Learn more
-        <img src="../assets/images/icons/arrow_right.svg" class="arrow-right" />
-      </router-link>
       <img
         class="cross-bt"
         src="../assets/images/icons/cross.svg"
@@ -21,7 +25,7 @@
     <div
       class="menu-container"
       :style="scrolledStyle"
-      :class="{ 'alert-closed': isClosed }"
+      :class="{ 'alert-closed': isAlertClosed }"
       ref="fixedMenu"
     >
       <div class="left">
@@ -48,9 +52,15 @@
       </div>
 
       <div class="right">
-        <span class="right-menu">Sign in</span>
-        <span class="right-menu">Talk to sales</span>
-        <span class="right-bt">Get started free</span>
+        <img class="hamburger" src="../assets/images/icons/hamburger.svg" />
+        <div
+          class="right-menu-container"
+          :class="isHamburgerClosed ? 'hamburger-closed' : ''"
+        >
+          <span class="right-menu-item">Sign in</span>
+          <span class="right-menu-item">Talk to sales</span>
+          <span class="right-bt">Get started free</span>
+        </div>
       </div>
     </div>
   </div>
@@ -60,7 +70,8 @@
 import { onMounted, onUnmounted, ref, type Ref } from "vue";
 const fixedMenu: any = ref<HTMLElement | null>(null);
 const alertContainer: any = ref<HTMLElement | null>(null);
-const isClosed: Ref<boolean> = ref(false);
+const isAlertClosed: Ref<boolean> = ref(false);
+const isHamburgerClosed: Ref<boolean> = ref(true);
 const scrollY = ref(0);
 const menuList: Ref<string[]> = ref([
   "Why 1Password",
@@ -72,7 +83,7 @@ let lastScrollTop: Ref<number> = ref(0);
 let isHidden: boolean = false;
 
 const closed = () => {
-  isClosed.value = true;
+  isAlertClosed.value = true;
   updateScroll();
 };
 
@@ -97,13 +108,12 @@ const updateScroll = () => {
   lastScrollTop.value = Math.max(scrollTop, 0); // iOS 바운스 방지
 
   // alert 닫히면 fixed 고정
-  if (isClosed.value) {
+  if (isAlertClosed.value) {
     scrolledStyle.value = {
       position: "fixed",
     };
     return;
   }
-
 
   const alertContainerHeight: number = alertContainer.value.offsetHeight;
 
@@ -123,12 +133,12 @@ const updateScroll = () => {
 
 onMounted(() => {
   window.addEventListener("scroll", updateScroll);
-  window.addEventListener('resize', updateScroll);
+  window.addEventListener("resize", updateScroll);
 });
 
 onUnmounted(() => {
   window.removeEventListener("scroll", updateScroll);
-  window.removeEventListener('resize', updateScroll);
+  window.removeEventListener("resize", updateScroll);
 });
 </script>
 
@@ -230,32 +240,39 @@ onUnmounted(() => {
       text-align: left;
       letter-spacing: -0.32px;
 
-      > .right-menu {
-        padding-top: 22.2px;
-        padding-bottom: 21.8px;
-        padding-left: 12px;
-        padding-right: 12px;
-
-        display: block;
+      > .hamburger-closed {
+        @include minimize {
+          display: none;
+        }
       }
-      > .right-bt {
-        height: fit-content;
+      > .right-menu-container {
+        > .right-menu {
+          padding-top: 22.2px;
+          padding-bottom: 21.8px;
+          padding-left: 12px;
+          padding-right: 12px;
 
-        padding-top: 12px;
-        padding-bottom: 12px;
-        padding-left: 41.5px;
-        padding-right: 41.5px;
+          display: block;
+        }
+        > .right-bt {
+          height: fit-content;
 
-        margin-right: 15px;
-        margin-left: 13.35px;
+          padding-top: 12px;
+          padding-bottom: 12px;
+          padding-left: 41.5px;
+          padding-right: 41.5px;
 
-        font-size: 15.5px;
-        letter-spacing: 0.3px;
-        color: #fffefb;
+          margin-right: 15px;
+          margin-left: 13.35px;
 
-        border-radius: 999px;
-        background-color: #0364d3;
-        white-space: nowrap;
+          font-size: 15.5px;
+          letter-spacing: 0.3px;
+          color: #fffefb;
+
+          border-radius: 999px;
+          background-color: #0364d3;
+          white-space: nowrap;
+        }
       }
     }
   }
@@ -268,36 +285,58 @@ onUnmounted(() => {
 
     position: relative;
 
+    font-size: 15.3px;
     letter-spacing: -0.1px;
 
     background-color: #fffefb;
-    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    transition:
+      transform 0.5s ease-in-out,
+      opacity 0.5s ease-in-out;
+
+    @include minimize {
+      text-align: left;
+      padding-left: 24px;
+      padding-right: 66px;
+
+      font-size: 15.5px;
+    }
 
     > .alert-text {
-      font-size: 15.3px;
       line-height: 24px;
       font-weight: 600;
-    }
-    > .alert-router {
-      margin-left: 12px;
 
-      color: #0364d3;
-      font-size: 15.5px;
-      line-height: 24px;
-      font-weight: 600;
-      letter-spacing: -0.32px;
-      text-decoration: none;
+      > .alert-router {
+        margin-left: 12px;
+
+        color: #0364d3;
+        font-size: 15.5px;
+        line-height: 24px;
+        font-weight: 600;
+        letter-spacing: -0.32px;
+        text-decoration: none;
+
+        @include minimize {
+          margin-left: 0px;
+
+          display: block;
+        }
+      }
 
       > .arrow-right {
         width: 14px;
         margin-left: 5px;
       }
     }
+
     > .cross-bt {
       position: absolute;
       right: 25.4px;
       top: 0px;
-      padding: 20px;
+      padding: 24px;
+
+      @include minimize {
+        right: 20px;
+      }
     }
   }
   > .alert-container.invisible {
