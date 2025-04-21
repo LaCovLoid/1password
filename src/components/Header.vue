@@ -17,7 +17,7 @@
       <img
         class="cross-bt"
         src="../assets/images/icons/cross.svg"
-        @click="closed()"
+        @click="alertClosed()"
       />
     </div>
 
@@ -52,10 +52,18 @@
       </div>
 
       <div class="right">
-        <img class="hamburger" src="../assets/images/icons/hamburger.svg" />
+        <img
+          class="hamburger"
+          :src="
+            isHamburgerClosed
+              ? 'src/assets/images/icons/hamburger.svg'
+              : 'src/assets/images/icons/cross.svg'
+          "
+          @click="inverseHamburgerState"
+        />
         <div
           class="right-menu-container"
-          :class="isHamburgerClosed ? 'hamburger-closed' : ''"
+          :class="!isHamburgerClosed ? 'hamburger-closed' : ''"
         >
           <span class="right-menu-item">Sign in</span>
           <span class="right-menu-item">Talk to sales</span>
@@ -82,7 +90,11 @@ const menuList: Ref<string[]> = ref([
 let lastScrollTop: Ref<number> = ref(0);
 let isHidden: boolean = false;
 
-const closed = () => {
+const inverseHamburgerState = () => {
+  isHamburgerClosed.value = !isHamburgerClosed.value;
+};
+
+const alertClosed = () => {
   isAlertClosed.value = true;
   updateScroll();
 };
@@ -240,12 +252,21 @@ onUnmounted(() => {
       text-align: left;
       letter-spacing: -0.32px;
 
+      > .hamburger {
+        display: none;
+        @include minimize {
+          display: inline-block;
+          margin-right: 12px;
+        }
+      }
       > .hamburger-closed {
+        display: inline-block !important;
+      }
+      > .right-menu-container {
         @include minimize {
           display: none;
         }
-      }
-      > .right-menu-container {
+
         > .right-menu {
           padding-top: 22.2px;
           padding-bottom: 21.8px;
@@ -254,6 +275,7 @@ onUnmounted(() => {
 
           display: block;
         }
+
         > .right-bt {
           height: fit-content;
 
