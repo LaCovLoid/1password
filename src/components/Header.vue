@@ -6,8 +6,8 @@
         1Password is now the exclusive Cybersecurity Partner of Oracle Red Bull
         Racing!
 
-        <router-link to="/" class="alert-router"
-          >Learn more
+        <router-link to="/" class="alert-router">
+          Learn more
           <img
             src="../assets/images/icons/arrow_right.svg"
             class="arrow-right"
@@ -36,56 +36,56 @@
           />
           <span class="logo-text">1Password</span>
         </router-link>
-
-        <router-link
-          to="/"
-          class="menu-item"
-          v-for="(item, index) in menuList"
-          :key="index"
-        >
-          <span class="item-text">{{ item }}</span>
-          <img
-            class="chevron-bottom"
-            src="../assets/images/icons/chevron_bottom.png"
-          />
-        </router-link>
       </div>
 
-      <div class="right">
-        <img
-          class="hamburger"
-          :src="
-            isHamburgerClosed
-              ? 'src/assets/images/icons/hamburger.svg'
-              : 'src/assets/images/icons/cross.svg'
-          "
-          @click="inverseHamburgerState"
-        />
-        <div
-          class="right-menu-container"
-          :class="!isHamburgerClosed ? 'hamburger-closed' : ''"
-        >
+      <!-- right랑 그 안에 -->
+      <div class="right" :class="!isHamburgerClosed ? 'hamburger-closed' : ''">
+        <div class="right-menu-left-container">
+          <router-link
+            to="/"
+            class="menu-item"
+            v-for="(item, index) in menuList"
+            :key="index"
+          >
+            <span class="item-text">{{ item }}</span>
+            <img
+              class="chevron-bottom"
+              src="../assets/images/icons/chevron_bottom.png"
+            />
+          </router-link>
+        </div>
+        <div class="right-menu-right-container">
           <span class="right-menu-item">Sign in</span>
           <span class="right-menu-item">Talk to sales</span>
           <span class="right-bt">Get started free</span>
         </div>
       </div>
+
+      <img
+        class="hamburger"
+        :src="
+          isHamburgerClosed
+            ? 'src/assets/images/icons/hamburger.svg'
+            : 'src/assets/images/icons/cross.svg'
+        "
+        @click="inverseHamburgerState"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, type Ref } from "vue";
+import { onMounted, onUnmounted, ref, type Ref } from 'vue';
 const fixedMenu: any = ref<HTMLElement | null>(null);
 const alertContainer: any = ref<HTMLElement | null>(null);
 const isAlertClosed: Ref<boolean> = ref(false);
 const isHamburgerClosed: Ref<boolean> = ref(true);
 const scrollY = ref(0);
 const menuList: Ref<string[]> = ref([
-  "Why 1Password",
-  "Products",
-  "Resources",
-  "Pricing",
+  'Why 1Password',
+  'Products',
+  'Resources',
+  'Pricing',
 ]);
 let lastScrollTop: Ref<number> = ref(0);
 let isHidden: boolean = false;
@@ -100,7 +100,7 @@ const alertClosed = () => {
 };
 
 const scrolledStyle: any = ref({
-  position: "absolute",
+  position: 'absolute',
 });
 
 const updateScroll = () => {
@@ -110,10 +110,10 @@ const updateScroll = () => {
   const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
   if (scrollTop > lastScrollTop.value && scrollTop > 300 && !isHidden) {
-    fixedMenu.value.style.transform = "translateX(-50%) translateY(-100px)";
+    fixedMenu.value.style.transform = 'translateX(-50%) translateY(-100px)';
     isHidden = true;
   } else if (scrollTop < lastScrollTop.value && scrollTop > 300 && isHidden) {
-    fixedMenu.value.style.transform = "translateX(-50%) translateY(0)";
+    fixedMenu.value.style.transform = 'translateX(-50%) translateY(0)';
     isHidden = false;
   }
 
@@ -122,7 +122,7 @@ const updateScroll = () => {
   // alert 닫히면 fixed 고정
   if (isAlertClosed.value) {
     scrolledStyle.value = {
-      position: "fixed",
+      position: 'fixed',
     };
     return;
   }
@@ -131,31 +131,31 @@ const updateScroll = () => {
 
   if (scrollY.value > alertContainerHeight) {
     scrolledStyle.value = {
-      position: "fixed",
-      top: "0px",
+      position: 'fixed',
+      top: '0px',
     };
   } else {
     scrolledStyle.value = {
-      position: "absolute",
-      top: String(alertContainerHeight) + "px",
+      position: 'absolute',
+      top: String(alertContainerHeight) + 'px',
     };
   }
-  console.log("실행");
+  console.log('실행');
 };
 
 onMounted(() => {
-  window.addEventListener("scroll", updateScroll);
-  window.addEventListener("resize", updateScroll);
+  window.addEventListener('scroll', updateScroll);
+  window.addEventListener('resize', updateScroll);
 });
 
 onUnmounted(() => {
-  window.removeEventListener("scroll", updateScroll);
-  window.removeEventListener("resize", updateScroll);
+  window.removeEventListener('scroll', updateScroll);
+  window.removeEventListener('resize', updateScroll);
 });
 </script>
 
 <style lang="scss" scoped>
-@use "@/global.scss" as *;
+@use '@/global.scss' as *;
 
 .header-container {
   //////////////////////////menu-container/////////////////////
@@ -169,7 +169,6 @@ onUnmounted(() => {
     margin-top: 20px;
 
     display: flex;
-    justify-content: space-between;
 
     position: fixed;
     left: 50%;
@@ -180,6 +179,8 @@ onUnmounted(() => {
     overflow: hidden;
     background-color: #ffffff;
     z-index: 999;
+
+    overflow: visible;
 
     @include minimize {
       width: calc(100% - 24px);
@@ -252,6 +253,8 @@ onUnmounted(() => {
       text-align: left;
       letter-spacing: -0.32px;
 
+      position: relative;
+
       > .hamburger {
         display: none;
         @include minimize {
@@ -259,21 +262,33 @@ onUnmounted(() => {
           margin-right: 12px;
         }
       }
+
       > .hamburger-closed {
         display: inline-block !important;
       }
+
       > .right-menu-container {
+        display: flex;
+        align-items: center;
+
         @include minimize {
           display: none;
+
+          position: absolute;
+          top: 50px;
+          right: 0;
+
+          background-color: #fffefb;
+          border: #69afff 5px solid;
         }
 
-        > .right-menu {
+        > .right-menu-item {
           padding-top: 22.2px;
           padding-bottom: 21.8px;
           padding-left: 12px;
           padding-right: 12px;
 
-          display: block;
+          display: inline-block;
         }
 
         > .right-bt {
