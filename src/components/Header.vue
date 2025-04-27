@@ -89,6 +89,7 @@ const menuList: Ref<string[]> = ref([
 ]);
 let lastScrollTop: Ref<number> = ref(0);
 let isHidden: boolean = false;
+const windowWidth = ref(window.innerWidth);
 
 const inverseHamburgerState = () => {
   isHamburgerClosed.value = !isHamburgerClosed.value;
@@ -101,6 +102,11 @@ const alertClosed = () => {
 
 const scrolledStyle: any = ref({
   position: 'absolute',
+});
+
+const getHamburgerMenuStyle: any = ref({
+  position: 'absolute',
+  top: '0px',
 });
 
 const updateScroll = () => {
@@ -169,6 +175,7 @@ onUnmounted(() => {
     margin-top: 20px;
 
     display: flex;
+    justify-content: space-between;
 
     position: fixed;
     left: 50%;
@@ -216,35 +223,12 @@ onUnmounted(() => {
           color: #000000;
         }
       }
-
-      > .menu-item {
-        padding-top: 22px;
-        padding-bottom: 22px;
-        padding-left: 12px;
-        padding-right: 12px;
-
-        display: flex;
-
-        > .item-text {
-          display: block;
-
-          color: #1a285f;
-          font-size: 15.13px;
-          font-weight: 300;
-          line-height: 21.6px;
-          letter-spacing: -0.32px;
-        }
-
-        > .chevron-bottom {
-          margin-top: auto;
-          margin-bottom: auto;
-          margin-left: 20px;
-        }
-      }
     }
 
     > .right {
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       align-items: center;
 
       font-size: 15.8px;
@@ -253,34 +237,47 @@ onUnmounted(() => {
       text-align: left;
       letter-spacing: -0.32px;
 
-      position: relative;
+      @include minimize {
+        position: absolute;
+        top: 50px;
+        right: 0;
 
-      > .hamburger {
-        display: none;
-        @include minimize {
-          display: inline-block;
-          margin-right: 12px;
+        background-color: #fffefb;
+        border: #69afff 5px solid;
+      }
+
+      > .right-menu-left-container {
+        display: flex;
+
+        > .menu-item {
+          padding-top: 22px;
+          padding-bottom: 22px;
+          padding-left: 12px;
+          padding-right: 12px;
+
+          display: flex;
+
+          > .item-text {
+            display: block;
+
+            color: #1a285f;
+            font-size: 15.13px;
+            font-weight: 300;
+            line-height: 21.6px;
+            letter-spacing: -0.32px;
+          }
+
+          > .chevron-bottom {
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: 20px;
+          }
         }
       }
 
-      > .hamburger-closed {
-        display: inline-block !important;
-      }
-
-      > .right-menu-container {
+      > .right-menu-right-container {
         display: flex;
         align-items: center;
-
-        @include minimize {
-          display: none;
-
-          position: absolute;
-          top: 50px;
-          right: 0;
-
-          background-color: #fffefb;
-          border: #69afff 5px solid;
-        }
 
         > .right-menu-item {
           padding-top: 22.2px;
@@ -310,6 +307,14 @@ onUnmounted(() => {
           background-color: #0364d3;
           white-space: nowrap;
         }
+      }
+    }
+
+    > .hamburger {
+      display: none;
+      @include minimize {
+        display: inline-block;
+        margin-right: 12px;
       }
     }
   }
