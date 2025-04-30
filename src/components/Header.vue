@@ -39,7 +39,7 @@
       </div>
 
       <!-- right랑 그 안에 -->
-      <div class="right" :class="!isHamburgerClosed ? 'hamburger-closed' : ''">
+      <div class="right" :class="isHamburgerClosed ? 'hamburger-closed' : ''">
         <div class="right-menu-left-container">
           <router-link
             to="/"
@@ -225,6 +225,15 @@ onUnmounted(() => {
       }
     }
 
+    //hamburger 눌러야 사라지도록 바꿔야함
+    //줄이면 애들 block으로 되게 바꿔야함
+    //right가 사라지도록 한 상태
+
+    > .hamburger-closed {
+      @include minimize {
+        display: none !important;
+      }
+    }
     > .right {
       width: 100%;
       display: flex;
@@ -238,8 +247,12 @@ onUnmounted(() => {
       letter-spacing: -0.32px;
 
       @include minimize {
+        width: 100%;
+
+        display: block;
+
         position: absolute;
-        top: 50px;
+        top: 70px;
         right: 0;
 
         background-color: #fffefb;
@@ -248,6 +261,10 @@ onUnmounted(() => {
 
       > .right-menu-left-container {
         display: flex;
+
+        @include minimize {
+          display: block;
+        }
 
         > .menu-item {
           padding-top: 22px;
@@ -279,6 +296,12 @@ onUnmounted(() => {
         display: flex;
         align-items: center;
 
+        @include minimize {
+          display: block;
+
+          padding-bottom: 20px;
+        }
+
         > .right-menu-item {
           padding-top: 22.2px;
           padding-bottom: 21.8px;
@@ -286,6 +309,10 @@ onUnmounted(() => {
           padding-right: 12px;
 
           display: inline-block;
+
+          @include minimize {
+            display: block;
+          }
         }
 
         > .right-bt {
@@ -306,6 +333,10 @@ onUnmounted(() => {
           border-radius: 999px;
           background-color: #0364d3;
           white-space: nowrap;
+
+          @include minimize {
+            display: block;
+          }
         }
       }
     }
