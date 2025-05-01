@@ -335,6 +335,8 @@ onUnmounted(() => {
           white-space: nowrap;
 
           @include minimize {
+            width: fit-content;
+
             display: block;
           }
         }

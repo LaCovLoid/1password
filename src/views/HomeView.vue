@@ -410,6 +410,9 @@ onMounted(() => {
     @include minimize {
       height: 677.4px;
 
+      padding-left: 24px;
+      padding-right:24px;
+
       flex-wrap: wrap;
     }
 
@@ -419,9 +422,9 @@ onMounted(() => {
       padding-bottom: 98px;
 
       @include minimize {
-        order: 2;
-
         padding-left: 0;
+
+        order: 2;
       }
 
       > .racingcar-title {
@@ -430,6 +433,13 @@ onMounted(() => {
         font-size: 84.22px;
         line-height: 96.8px;
         letter-spacing: -1.76px;
+        text-align: left;
+
+        @include minimize {
+          font-size: 45.94px;
+          line-height: 52.8px;
+          letter-spacing: -0.96px;
+        }
       }
 
       > .racingcar-description {
@@ -444,6 +454,14 @@ onMounted(() => {
         line-height: 27px;
         letter-spacing: -0.4px;
         text-align: left;
+
+        @include minimize {
+          padding-right: 23px;
+
+          font-size: 17.3px;
+          line-height: 24.3px;
+          letter-spacing: -0.36px;
+        }
       }
 
       > .racingcar-bt-container {
@@ -466,6 +484,10 @@ onMounted(() => {
           line-height: 24px;
 
           border-radius: 999px;
+
+          @include minimize {
+            width: 100%;
+          }
         }
 
         > .bt-plan {
@@ -475,6 +497,10 @@ onMounted(() => {
           font-size: 15.38px;
 
           background-color: #85beff;
+
+          @include minimize {
+            margin-right: 0;
+          }
         }
 
         > .bt-sales {
@@ -486,6 +512,7 @@ onMounted(() => {
             #85beff 98%
           );
           background-color: #fffefb;
+          border: #fffefb 1px solid;
         }
       }
     }
@@ -495,6 +522,9 @@ onMounted(() => {
       padding-bottom: 48px;
 
       @include minimize {
+        width: 100%;
+
+        text-align: left;
         order: 1;
       }
 
@@ -661,7 +691,7 @@ onMounted(() => {
 
       background-color: #242529;
 
-      
+
       @include minimize {
         width: 100%;
       }
@@ -824,7 +854,7 @@ onMounted(() => {
 
           > .reason-carousel-item-img {
             height: 96px;
-            
+
             position: absolute;
             bottom: 32px;
 
