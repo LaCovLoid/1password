@@ -345,9 +345,10 @@ onUnmounted(() => {
 
     > .hamburger {
       display: none;
+      margin-right: 25px;
+
       @include minimize {
         display: inline-block;
-        margin-right: 12px;
       }
     }
   }

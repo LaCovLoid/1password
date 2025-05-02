@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="racingcar-right">
-        <img class="racingcar-logo" src="../assets/images/logos/oracle.png" />
+        <img class="racingcar-logo" :src="innerWidth > 1200 ? 'src/assets/images/logos/oracle.png':'src/assets/images/logos/oracle_short.png'" />
       </div>
     </div>
     <!-- ------------securing-container------------ -->
@@ -250,7 +250,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick, onMounted, onBeforeUnmount, type Ref } from "vue";
+import { ref, nextTick, onMounted, onBeforeUnmount, type Ref, onUnmounted } from "vue";
 import descriptionData from "../assets/json/DescriptionData.json";
 import logoData from "../assets/json/LogoData.json";
 import type { ProtectDescriptionType, ReasonDescriptionType } from "../types";
@@ -259,16 +259,15 @@ const protectFirstList: ProtectDescriptionType[] =
   descriptionData.protectFirstDescription;
 const protectSecondList: ProtectDescriptionType[] =
   descriptionData.protectSecondDescription;
-
 const reasonDescription: ReasonDescriptionType[] =
   descriptionData.reasonDescription;
 
 const logoList: string[] = logoData.logos;
-
 const reasonCarouselContainer: any = ref<HTMLElement | null>(null);
 const reasonCarouselItem: any = ref<HTMLElement[]>([]);
-
 const selectedCarouselIndex = ref(7);
+
+const innerWidth: Ref<number> = ref(window.innerWidth);
 
 const selectCarousel = (value: number) => {
   selectedCarouselIndex.value = value;
@@ -322,6 +321,10 @@ const onMouseMove = (e: MouseEvent) => {
   setCarouselLocateX(nowLocate.value - moveValue.value);
 };
 
+const getOracleSrc = () => {
+  return ;
+};
+
 //  const 5초동안 안되게 하는 변수 정해서 mouseDown을 못하게하면됨
 const onMouseUp = () => {
   if (!isDragging.value) return;
@@ -364,15 +367,28 @@ const onTransitionEnd = () => {
 
 // transition이 끝날 때까지 기다린 후 다음 작업을 실행
 
+
+const updateWidth = () => {
+  innerWidth.value = window.innerWidth;
+};
+
 onMounted(() => {
   selectCarousel(7);
-  // 이벤트 바인딩
   const container = reasonCarouselContainer.value;
   container?.addEventListener("mousedown", onMouseDown);
   window.addEventListener("mousemove", onMouseMove);
   window.addEventListener("mouseup", onMouseUp);
+  window.addEventListener('resize', updateWidth);
 });
+
+onUnmounted(() => {
+  window.removeEventListener("mousemove", onMouseMove);
+  window.removeEventListener("mouseup", onMouseUp);
+  window.removeEventListener('resize', updateWidth);
+});
+
 </script>
+
 
 <style lang="scss" scoped>
 @use "@/global.scss" as *;
@@ -423,6 +439,7 @@ onMounted(() => {
 
       @include minimize {
         padding-left: 0;
+        padding-bottom: 34px;
 
         order: 2;
       }
@@ -500,6 +517,7 @@ onMounted(() => {
 
           @include minimize {
             margin-right: 0;
+
           }
         }
 
@@ -513,6 +531,11 @@ onMounted(() => {
           );
           background-color: #fffefb;
           border: #fffefb 1px solid;
+
+          @include minimize {
+            margin-top: 16px;
+
+          }
         }
       }
     }
@@ -523,6 +546,9 @@ onMounted(() => {
 
       @include minimize {
         width: 100%;
+        height: 0;
+
+        padding-bottom: 0;
 
         text-align: left;
         order: 1;
