@@ -651,6 +651,14 @@ onUnmounted(() => {
         border: #d7d7db 1px solid;
         background-color: #f2f2f3;
 
+        @include minimize {
+          height: fit-content;
+
+          padding-bottom: 15px;
+
+          margin-bottom: 25px;
+        }
+
         > .info-img {
           width: 100%;
         }
@@ -660,6 +668,13 @@ onUnmounted(() => {
           padding-left: 48px;
           padding-right: 80px;
 
+          @include minimize {
+            padding-top: 35px;
+            padding-bottom: 35px;
+            padding-left: 25px;
+            padding-right: 25px;
+          }
+
           > .info-subtitle {
             display: block;
 
@@ -668,6 +683,7 @@ onUnmounted(() => {
             line-height: 19.2px;
             letter-spacing: 0.6px;
           }
+
           > .info-title {
             display: block;
 
@@ -675,6 +691,15 @@ onUnmounted(() => {
             font-size: 27.45px;
             line-height: 33.6px;
             letter-spacing: -0.56px;
+
+            @include minimize {
+              font-size: 19.53px;
+              line-height: 22px;
+              letter-spacing: -0.4px;
+
+              margin-top: 25px;
+              margin-bottom: 15px;
+            }
           }
 
           > .info-description {
@@ -684,6 +709,13 @@ onUnmounted(() => {
             font-size: 19.38px;
             line-height: 27px;
             letter-spacing: -0.5px;
+
+            @include minimize {
+              font-size: 17.86px;
+              line-height: 24.3px;
+              letter-spacing: -0.36px;
+
+            }
           }
 
           > .info-url {
@@ -695,6 +727,11 @@ onUnmounted(() => {
             font-size: 15.38px;
             line-height: 24px;
             letter-spacing: -0.32px;
+
+            @include minimize {
+              margin-top: 34px;
+              text-align: center;
+            }
 
             > .arrow {
               margin-left: 5px;
