@@ -571,6 +571,11 @@ onUnmounted(() => {
 
     text-align: left;
 
+    @include minimize {
+      padding: 24px;
+      padding-top: 67px;
+    }
+
     > .securing-subtitle {
       display: block;
 
@@ -595,7 +600,11 @@ onUnmounted(() => {
       letter-spacing: -1.36px;
 
       @include minimize {
+        padding-right: 44.27px;
+
         font-size: 35.58px;
+        line-height: 39.6px;
+        letter-spacing: -0.72px;
       }
     }
 
@@ -611,11 +620,26 @@ onUnmounted(() => {
       font-weight: 300;
       line-height: 27px;
       letter-spacing: -0.4px;
+
+      @include minimize {
+        padding-right: 10px;
+
+        margin-bottom: 25px;
+
+        font-size: 17.3px;
+        line-height: 24.3px;
+        letter-spacing: -0.36px;
+      }
     }
 
     > .securing-info-container {
       display: flex;
       justify-content: space-between;
+
+      @include minimize {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
 
       > .securing-info-item {
         width: 608px;
