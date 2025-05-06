@@ -4,17 +4,24 @@
     <div class="racingcar-container">
       <div class="racingcar-left">
         <span class="racingcar-title">Trusted access</span>
-        <span class="racingcar-description"
-          >Extended Access Management fueled by the market-leading password
-          manager.</span
-        >
+        <span class="racingcar-description">
+          Extended Access Management fueled by the market-leading password
+          manager.
+        </span>
         <div class="racingcar-bt-container">
           <span class="racingcar-bt bt-plan">View plans</span>
           <span class="racingcar-bt bt-sales">Talk to sales</span>
         </div>
       </div>
       <div class="racingcar-right">
-        <img class="racingcar-logo" :src="innerWidth > 1200 ? 'src/assets/images/logos/oracle.png':'src/assets/images/logos/oracle_short.png'" />
+        <img
+          class="racingcar-logo"
+          :src="
+            innerWidth > 1200
+              ? 'src/assets/images/logos/oracle.png'
+              : 'src/assets/images/logos/oracle_short.png'
+          "
+        />
       </div>
     </div>
     <!-- ------------securing-container------------ -->
@@ -25,8 +32,8 @@
       <span class="securing-title">
         Securing access from headquarters to the track
       </span>
-      <span class="securing-description"
-        >As the official Cybersecurity Partner of Oracle Red Bull Racing,
+      <span class="securing-description">
+        As the official Cybersecurity Partner of Oracle Red Bull Racing,
         1Password ensures that every sign-in to every application is secure and
         every device is trusted.
       </span>
@@ -98,7 +105,7 @@
     </div>
     <!-- ------------businesses-container------------ -->
     <div class="businesses-container">
-      <span class="businesses-title"> 150,000 businesses trust 1Password </span>
+      <span class="businesses-title">150,000 businesses trust 1Password</span>
       <div class="businesses-slide-container">
         <div
           class="businesses-slide-track"
@@ -142,11 +149,15 @@
               v-if="item.backgroundImg"
               :src="item.backgroundImg"
               draggable="false"
-            ></img>
+            />
             <span class="reason-carousel-item-title">
               {{ item.text }}
             </span>
-            <img class="reason-carousel-item-img" :src="item.img" draggable="false"/>
+            <img
+              class="reason-carousel-item-img"
+              :src="item.img"
+              draggable="false"
+            />
           </div>
         </div>
       </div>
@@ -157,8 +168,7 @@
         v-for="index in 6"
         :key="index"
         @click="selectCarousel(index + 6)"
-      >
-      </span>
+      ></span>
     </div>
     <!-- ------------protect-container------------ -->
     <div class="protect-container">
@@ -167,7 +177,7 @@
       </span>
       <div class="protect-info-container">
         <div class="protect-info-text-container">
-          <span class="protect-info-subtitle"> PASSWORD MANAGEMENT </span>
+          <span class="protect-info-subtitle">PASSWORD MANAGEMENT</span>
           <span class="protect-info-title">
             Protect your passwords with a secure password manager
           </span>
@@ -183,14 +193,19 @@
               class="protect-info-description-icon"
               :src="'src/assets/images/icons/' + item.iconUrl"
             />
-            <span class="protect-info-description-title">
-              {{ item.title }}
-            </span>
-            <span class="protect-info-description-text" v-if="item.description">
-              {{ item.description }}
-            </span>
+            <div class="protect-info-description-container">
+              <span class="protect-info-description-title">
+                {{ item.title }}
+              </span>
+              <span
+                class="protect-info-description-text"
+                v-if="item.description"
+              >
+                {{ item.description }}
+              </span>
+            </div>
           </div>
-          <span class="protect-info-bt"> Explore password manager </span>
+          <span class="protect-info-bt">Explore password manager</span>
         </div>
         <img
           class="protect-info-img"
@@ -205,9 +220,7 @@
         />
 
         <div class="protect-info-text-container">
-          <span class="protect-info-subtitle">
-            EXTENDED ACCESS MANAGEMENT
-          </span>
+          <span class="protect-info-subtitle">EXTENDED ACCESS MANAGEMENT</span>
           <span class="protect-info-title">
             Secure every identity, device, and app with the future of access
             management.
@@ -221,21 +234,26 @@
               class="protect-info-description-icon"
               :src="'src/assets/images/icons/' + item.iconUrl"
             />
-            <span class="protect-info-description-title">
-              {{ item.title }}
-            </span>
-            <span class="protect-info-description-text" v-if="item.description">
-              {{ item.description }}
-            </span>
+            <div class="protect-info-description-container">
+              <span class="protect-info-description-title">
+                {{ item.title }}
+              </span>
+              <span
+                class="protect-info-description-text"
+                v-if="item.description"
+              >
+                {{ item.description }}
+              </span>
+            </div>
           </div>
-          <span class="protect-info-bt"> Explore XAM </span>
+          <span class="protect-info-bt">Explore XAM</span>
         </div>
       </div>
     </div>
     <!-- ------------introducing-container------------ -->
     <div class="introducing-container">
       <div class="introducing-inside-box">
-        <span class="introducing-subtitle"> NEW PRODUCT </span>
+        <span class="introducing-subtitle">NEW PRODUCT</span>
         <span class="introducing-title">
           Introducing 1Password Extended Access Management (XAM)
         </span>
@@ -243,17 +261,24 @@
           The first and only solution that helps companies secure access to all
           apps from any device in today’s SaaS-centric hybrid work environment.
         </span>
-        <span class="introducing-bt"> Learn about XAM </span>
+        <span class="introducing-bt">Learn about XAM</span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick, onMounted, onBeforeUnmount, type Ref, onUnmounted } from "vue";
-import descriptionData from "../assets/json/DescriptionData.json";
-import logoData from "../assets/json/LogoData.json";
-import type { ProtectDescriptionType, ReasonDescriptionType } from "../types";
+import {
+  ref,
+  nextTick,
+  onMounted,
+  onBeforeUnmount,
+  type Ref,
+  onUnmounted,
+} from 'vue';
+import descriptionData from '../assets/json/DescriptionData.json';
+import logoData from '../assets/json/LogoData.json';
+import type { ProtectDescriptionType, ReasonDescriptionType } from '../types';
 
 const protectFirstList: ProtectDescriptionType[] =
   descriptionData.protectFirstDescription;
@@ -288,7 +313,7 @@ const moveCarousel = () => {
     reasonCarouselItem.value[selectedCarouselIndex.value - 1].offsetWidth / 2;
 
   reasonCarouselContainer.value.style.transform =
-    "translateX(-" + totalMoveWidth + "px)";
+    'translateX(-' + totalMoveWidth + 'px)';
 
   nowLocate.value = totalMoveWidth;
 
@@ -297,7 +322,7 @@ const moveCarousel = () => {
 
 const setCarouselLocateX = (value: number) => {
   reasonCarouselContainer.value.style.transform =
-    "translateX(-" + value + "px)";
+    'translateX(-' + value + 'px)';
 };
 
 //마우스 이벤트
@@ -308,7 +333,7 @@ const isDragging = ref(false);
 const startX = ref(0);
 
 const onMouseDown = (e: MouseEvent) => {
-  reasonCarouselContainer.value.style.transition = "none";
+  reasonCarouselContainer.value.style.transition = 'none';
 
   isDragging.value = true;
   startX.value = e.clientX;
@@ -322,7 +347,7 @@ const onMouseMove = (e: MouseEvent) => {
 };
 
 const getOracleSrc = () => {
-  return ;
+  return;
 };
 
 //  const 5초동안 안되게 하는 변수 정해서 mouseDown을 못하게하면됨
@@ -331,7 +356,7 @@ const onMouseUp = () => {
 
   isDragging.value = false;
 
-  reasonCarouselContainer.value.style.transition = "transform 0.5s ease";
+  reasonCarouselContainer.value.style.transition = 'transform 0.5s ease';
 
   const threshold = 400; // 움직인 거리 임계값
 
@@ -353,20 +378,19 @@ const onMouseUp = () => {
 const onTransitionEnd = () => {
   // 마지막 아이템으로 갔을 때 원래 위치로 되돌리기
   if (selectedCarouselIndex.value >= reasonDescription.length * 2 + 1) {
-    reasonCarouselContainer.value.style.transition = "none"; // transition 꺼두기
+    reasonCarouselContainer.value.style.transition = 'none'; // transition 꺼두기
     selectedCarouselIndex.value -= reasonDescription.length; // 마지막에서 돌아올 때
     selectCarousel(selectedCarouselIndex.value); // 선택된 index로 이동
   }
 
   // transition이 없을 경우에만 다시 애니메이션 활성화
-  if (getComputedStyle(reasonCarouselContainer.value).transition == "none") {
+  if (getComputedStyle(reasonCarouselContainer.value).transition == 'none') {
     // 애니메이션을 끄고 나서 transition을 다시 활성화
-    reasonCarouselContainer.value.style.transition = "transform 0.5s ease";
+    reasonCarouselContainer.value.style.transition = 'transform 0.5s ease';
   }
 };
 
 // transition이 끝날 때까지 기다린 후 다음 작업을 실행
-
 
 const updateWidth = () => {
   innerWidth.value = window.innerWidth;
@@ -375,23 +399,21 @@ const updateWidth = () => {
 onMounted(() => {
   selectCarousel(7);
   const container = reasonCarouselContainer.value;
-  container?.addEventListener("mousedown", onMouseDown);
-  window.addEventListener("mousemove", onMouseMove);
-  window.addEventListener("mouseup", onMouseUp);
+  container?.addEventListener('mousedown', onMouseDown);
+  window.addEventListener('mousemove', onMouseMove);
+  window.addEventListener('mouseup', onMouseUp);
   window.addEventListener('resize', updateWidth);
 });
 
 onUnmounted(() => {
-  window.removeEventListener("mousemove", onMouseMove);
-  window.removeEventListener("mouseup", onMouseUp);
+  window.removeEventListener('mousemove', onMouseMove);
+  window.removeEventListener('mouseup', onMouseUp);
   window.removeEventListener('resize', updateWidth);
 });
-
 </script>
 
-
 <style lang="scss" scoped>
-@use "@/global.scss" as *;
+@use '@/global.scss' as *;
 
 @keyframes moveLeft {
   0% {
@@ -417,7 +439,7 @@ onUnmounted(() => {
 
     color: #ffffff;
 
-    background-image: url("../assets/images/pictures/racingcar.png");
+    background-image: url('../assets/images/pictures/racingcar.png');
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -427,11 +449,10 @@ onUnmounted(() => {
       height: 677.4px;
 
       padding-left: 24px;
-      padding-right:24px;
+      padding-right: 24px;
 
       flex-wrap: wrap;
     }
-
 
     > .racingcar-left {
       padding-left: 94px;
@@ -517,7 +538,6 @@ onUnmounted(() => {
 
           @include minimize {
             margin-right: 0;
-
           }
         }
 
@@ -534,7 +554,6 @@ onUnmounted(() => {
 
           @include minimize {
             margin-top: 16px;
-
           }
         }
       }
@@ -714,7 +733,6 @@ onUnmounted(() => {
               font-size: 17.86px;
               line-height: 24.3px;
               letter-spacing: -0.36px;
-
             }
           }
 
@@ -778,9 +796,11 @@ onUnmounted(() => {
 
       background-color: #242529;
 
-
       @include minimize {
         width: 100%;
+
+        padding: 32px;
+        padding-right: 40px;
       }
 
       > .interview-logo {
@@ -797,6 +817,14 @@ onUnmounted(() => {
         font-weight: 200;
         line-height: 44px;
         letter-spacing: -0.8px;
+
+        @include minimize {
+          margin-top: 31px;
+
+          font-size: 24px;
+          line-height: 26.4px;
+          letter-spacing: -0.48px;
+        }
       }
 
       > .interview-talker {
@@ -806,6 +834,12 @@ onUnmounted(() => {
         font-weight: 200;
         line-height: 22.5px;
         letter-spacing: -0.3px;
+
+        @include minimize {
+          font-size: 13.56px;
+          line-height: 21px;
+          letter-spacing: -0.28px;
+        }
       }
 
       > .talker-info {
@@ -881,6 +915,11 @@ onUnmounted(() => {
     position: relative;
     overflow: hidden;
 
+    @include minimize {
+      padding-top: 87px;
+      padding-bottom: 60px;
+    }
+
     > .reason-title {
       display: block;
 
@@ -900,6 +939,10 @@ onUnmounted(() => {
 
       user-select: none;
       -webkit-user-drag: none;
+
+      @include minimize {
+        top: 180px;
+      }
 
       > .reason-carousel-track {
         display: flex;
@@ -944,7 +987,6 @@ onUnmounted(() => {
 
             position: absolute;
             bottom: 32px;
-
           }
         }
       }
@@ -978,6 +1020,11 @@ onUnmounted(() => {
     background-color: #e7f7f9;
     border-radius: 30px;
 
+    @include minimize {
+      padding: 24px;
+      padding-top: 64px;
+    }
+
     > .protect-title {
       max-width: 720px;
 
@@ -990,18 +1037,36 @@ onUnmounted(() => {
       font-size: 66.94px;
       line-height: 74.8px;
       letter-spacing: -1.36px;
+
+      @include minimize {
+        padding-left: 25px;
+        padding-right: 25px;
+
+        font-size: 35.58px;
+        line-height: 39.6px;
+        letter-spacing: -0.72px;
+        text-align: center;
+      }
     }
 
     > .protect-info-container {
-      height: 623px;
+      height: auto;
 
       margin-top: 64px;
+
+      display: flex;
 
       background-color: #ffffff;
       border: #d7d7db 1px solid;
       border-radius: 20px;
 
       overflow: hidden;
+
+      @include minimize {
+        margin-top: 0;
+
+        flex-wrap: wrap;
+      }
 
       > .protect-info-text-container {
         width: 50%;
@@ -1010,9 +1075,19 @@ onUnmounted(() => {
         padding-left: 49px;
         padding-right: 48px;
 
-        display: inline-block;
         text-align: left;
         vertical-align: top;
+
+        @include minimize {
+          width: 100%;
+
+          padding-top: 23.5px;
+          padding-left: 25px;
+          padding-right: 25px;
+          padding-bottom: 27.61px;
+
+          order: 2;
+        }
 
         > .protect-info-subtitle {
           display: block;
@@ -1030,40 +1105,58 @@ onUnmounted(() => {
           font-size: 27.23px;
           line-height: 33.6px;
           letter-spacing: -0.56px;
+
+          @include minimize {
+            padding-right: 10px;
+
+            font-size: 19.38px;
+            line-height: 22px;
+            letter-spacing: -0.4px;
+          }
         }
 
         > .protect-info-description {
+          display: flex;
+
           color: #303136;
 
           > .protect-info-description-icon {
             width: 32px;
             height: 32px;
 
+            margin-top: 8px;
             margin-right: 8px;
             margin-left: 8px;
 
             vertical-align: middle;
           }
 
-          > .protect-info-description-title {
-            padding-top: 8px;
-            padding-left: 8px;
+          > .protect-info-description-container {
+            > .protect-info-description-title {
+              padding-top: 8px;
 
-            display: inline-block;
+              display: inline-block;
 
-            font-size: 19.4px;
-            line-height: 27px;
-            letter-spacing: -0.4px;
-          }
+              font-size: 19.4px;
+              line-height: 27px;
+              letter-spacing: -0.4px;
 
-          > .protect-info-description-text {
-            padding-left: 56px;
+              @include minimize {
+                padding-right: 10px;
 
-            display: block;
+                font-size: 17.58px;
+                line-height: 24.3px;
+                letter-spacing: -0.36px;
+              }
+            }
 
-            font-size: 13.67px;
-            line-height: 21px;
-            letter-spacing: -0.28px;
+            > .protect-info-description-text {
+              display: block;
+
+              font-size: 13.67px;
+              line-height: 21px;
+              letter-spacing: -0.28px;
+            }
           }
         }
 
@@ -1083,11 +1176,24 @@ onUnmounted(() => {
 
           background-color: #0364d3;
           border-radius: 30px;
+
+          @include minimize {
+            width: 100%;
+
+            text-align: center;
+          }
         }
       }
 
       > .protect-info-img {
-        width: 623px;
+        width: 50%;
+        height: fit-content;
+
+        @include minimize {
+          width: 100%;
+
+          order: 1;
+        }
       }
     }
   }
@@ -1102,12 +1208,17 @@ onUnmounted(() => {
     margin-left: auto;
     margin-right: auto;
 
-    background-image: url("../assets/images/pictures/wallpaper_1passowrd.webp");
+    background-image: url('../assets/images/pictures/wallpaper_1passowrd.webp');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
+
+    @include minimize {
+      padding: 24px;
+      padding-top: 32px;
+    }
 
     > .introducing-inside-box {
       max-width: 576px;
