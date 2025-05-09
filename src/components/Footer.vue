@@ -150,8 +150,8 @@ const changeSelectedLanguage = (value: string) => {
 
   padding-top: 72px;
   padding-bottom: 96px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 24px;
+  padding-right: 24px;
 
   margin-top: 47px;
   margin-left: auto;
@@ -444,6 +444,10 @@ const changeSelectedLanguage = (value: string) => {
             color: #fffefb;
             font-size: 15px;
             letter-spacing: -0.32px;
+
+            @include minimize {
+              margin-bottom: 10px;
+            }
 
             > .bottom-menu-item-icon {
               width: 29px;
