@@ -60,7 +60,7 @@
         </div>
       </div>
       <div class="download-container">
-        <span class="download-title">Download </span>
+        <span class="download-title">Download</span>
         <div class="menu-item-submenu-container">
           <RouterLink
             class="download-submenu"
@@ -119,9 +119,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, type Ref } from "vue";
-import footerMenuData from "../assets/json/footerMenuData.json";
-import type { FooterTitleMenuType, FooterMenuType } from "../types";
+import { ref, type Ref } from 'vue';
+import footerMenuData from '../assets/json/footerMenuData.json';
+import type { FooterTitleMenuType, FooterMenuType } from '../types';
 
 const middleMenuList: FooterTitleMenuType[] = footerMenuData.titleMenu;
 const downloadMenuList: FooterTitleMenuType = footerMenuData.downloadMenu;
@@ -129,8 +129,8 @@ const downloadMenuList: FooterTitleMenuType = footerMenuData.downloadMenu;
 const bottomIconList: FooterMenuType[] = footerMenuData.icon;
 const bottomMenuList: FooterMenuType[] = footerMenuData.bottomMenu;
 
-const selectedLanguage: Ref<string> = ref("English");
-const languageList: string[] = ["English", "Korean", "Japanese"];
+const selectedLanguage: Ref<string> = ref('English');
+const languageList: string[] = ['English', 'Korean', 'Japanese'];
 const isOpenSelectedLanguage: Ref<boolean> = ref(false);
 
 const inverseIsOpenLanguage = () => {
@@ -143,13 +143,15 @@ const changeSelectedLanguage = (value: string) => {
 </script>
 
 <style lang="scss" scoped>
-@use "@/global.scss" as *;
+@use '@/global.scss' as *;
 
 .footer-container {
   width: 100%;
 
   padding-top: 72px;
   padding-bottom: 96px;
+  padding-left: 20px;
+  padding-right: 20px;
 
   margin-top: 47px;
   margin-left: auto;
@@ -330,6 +332,9 @@ const changeSelectedLanguage = (value: string) => {
       background-color: #294d96;
 
       @include minimize {
+        margin-left: 0;
+        margin-bottom: 20px;
+
         order: 1;
       }
 

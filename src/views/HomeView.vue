@@ -1238,6 +1238,10 @@ onUnmounted(() => {
         font-size: 10.69px;
         line-height: 19.2px;
         letter-spacing: 0.6px;
+
+        @include minimize {
+          margin-bottom: 20px;
+        }
       }
 
       > .introducing-title {
@@ -1246,6 +1250,12 @@ onUnmounted(() => {
         font-size: 38.59px;
         line-height: 44px;
         letter-spacing: -0.8px;
+
+        @include minimize {
+          font-size: 23.06px;
+          line-height: 26.4px;
+          letter-spacing: -0.48px;
+        }
       }
 
       > .introducing-description {
@@ -1254,6 +1264,16 @@ onUnmounted(() => {
         font-size: 19.53px;
         line-height: 27px;
         letter-spacing: -0.4px;
+
+        @include minimize {
+          margin-top: 20px;
+
+          padding-right: 30px;
+
+          font-size: 15.5px;
+          line-height: 21.6px;
+          letter-spacing: -0.32px;
+        }
       }
 
       > .introducing-bt {
@@ -1270,7 +1290,12 @@ onUnmounted(() => {
         line-height: 24px;
         letter-spacing: 0px;
 
+        border-radius: 50px;
         background-color: #85beff;
+
+        @include minimize {
+          margin-top: 40px;
+        }
       }
     }
   }
